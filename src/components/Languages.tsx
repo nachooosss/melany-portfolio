@@ -1,43 +1,44 @@
 import { motion } from 'framer-motion'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
+import SectionHeading from './SectionHeading'
 
 export default function Languages() {
   return (
     <section id="languages" className="section-gutter py-24 md:py-32 border-t border-line">
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={revealViewport}
-        className="grid grid-cols-1 lg:grid-cols-12 gap-10"
-      >
-        <motion.div variants={fadeUp} className="lg:col-span-4">
-          <p className="section-number">06 — Idiomas</p>
-          <h2 className="font-display text-4xl md:text-5xl mt-4">
-            Comunicación
-          </h2>
-        </motion.div>
+      <div className="max-content">
+        <SectionHeading number="07" eyebrow="Idiomas" title="Comunicación" />
 
-        <motion.ul variants={fadeUp} className="lg:col-span-7 lg:col-start-6 space-y-6">
+        <motion.ul
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={revealViewport}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
           {cv.languages.map((lang) => (
-            <li key={lang.name} className="border-t border-line pt-5">
+            <motion.li key={lang.name} variants={fadeUp} className="border-t border-line pt-5">
               <div className="flex items-baseline justify-between">
-                <span className="font-display text-2xl">{lang.name}</span>
+                <span className="font-display text-2xl md:text-3xl">{lang.name}</span>
                 <span className="text-sm text-muted">{lang.level}</span>
               </div>
               <div className="mt-3 flex gap-2" aria-label={`Nivel ${lang.score} de 5`}>
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <span
+                  <motion.span
                     key={i}
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.6, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ transformOrigin: 'left' }}
                     className={`h-1.5 flex-1 ${i < lang.score ? 'bg-accent' : 'bg-line'}`}
                   />
                 ))}
               </div>
-            </li>
+            </motion.li>
           ))}
         </motion.ul>
-      </motion.div>
+      </div>
     </section>
   )
 }

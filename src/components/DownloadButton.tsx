@@ -1,53 +1,57 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Download } from 'lucide-react'
+import { pdf } from '@react-pdf/renderer'
+import { CVDocument } from './PrintableCV'
 
 type Props = {
   variant?: 'solid' | 'ghost'
   label?: string
 }
 
-export default function DownloadButton({ variant = 'solid', label = 'Descargar CV en PDF' }: Props) {
+export default function DownloadButton({
+  variant = 'solid',
+  label = 'Descargar CV en PDF',
+}: Props) {
   const [loading, setLoading] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
-  const handleDownload = async () => {
-    const node = document.getElementById('printable-cv')
-    if (!node) return
+  useEffect(() => setMounted(true), [])
+
+  const handleClick = async () => {
+    if (loading) return
     setLoading(true)
     try {
-      const html2pdf = (await import('html2pdf.js')).default
-      await html2pdf()
-        .set({
-          margin: 15,
-          filename: 'Melany-Santiesteban-CV.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
-        })
-        .from(node)
-        .save()
+      const blob = await pdf(<CVDocument />).toBlob()
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = 'Melany-Santiesteban-CV.pdf'
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      setTimeout(() => URL.revokeObjectURL(url), 2000)
+    } catch (err) {
+      console.error('Error generando el PDF:', err)
     } finally {
       setLoading(false)
     }
   }
 
-  const base =
-    'inline-flex items-center gap-2 px-6 py-3 font-sans text-sm tracking-wide transition-colors duration-300 disabled:opacity-50'
-
-  const styles =
-    variant === 'solid'
-      ? 'bg-ink text-bg hover:bg-accent'
-      : 'border border-ink text-ink hover:bg-ink hover:text-bg'
+  const className = variant === 'solid' ? 'btn-primary group' : 'btn-outline group'
 
   return (
     <button
       type="button"
-      onClick={handleDownload}
-      disabled={loading}
-      className={`${base} ${styles}`}
+      onClick={handleClick}
+      disabled={!mounted || loading}
+      className={className}
       aria-label="Descargar CV en PDF"
     >
-      <Download size={16} strokeWidth={1.5} />
+      <Download
+        size={16}
+        strokeWidth={1.5}
+        className="transition-transform group-hover:translate-y-0.5"
+      />
       {loading ? 'Generando…' : label}
     </button>
   )

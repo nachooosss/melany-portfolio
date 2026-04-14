@@ -17,27 +17,41 @@ export type Language = {
   score: number
 }
 
+export type Project = {
+  src: string
+  alt: string
+}
+
 export const cv = {
   personal: {
     name: 'Melany Santiesteban',
-    role: 'Diseñadora de Interiores',
-    tagline: 'Especializada en visualización 3D y planimetría técnica',
-    location: 'Panamá City, Panamá',
-    availability: 'Disponible para prácticas y proyectos freelance',
+    role: 'Diseñadora de Interiores · Visualización 3D · Panamá',
+    tagline:
+      'Visualización 3D fotorrealista y planimetría técnica para proyectos residenciales, comerciales y corporativos.',
+    availabilityPill:
+      'Disponible para prácticas y proyectos freelance · Panamá · Presencial, Híbrido o Remoto',
+    location: 'Ciudad de Panamá, Panamá',
     email: 'msg072garcia@gmail.com',
-    phone: '65776878',
-    // TODO: Melany debe añadir su URL real de LinkedIn antes de publicar
+    phone: '+507 6577-6878',
+    phoneRaw: '+50765776878',
+    whatsapp: 'https://wa.me/50765776878?text=Hola%20Melany%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20hablar%20contigo.',
+    mapsUrl: 'https://maps.google.com/?q=Panama+City,Panama',
+    // TODO: Melany debe pegar aquí la URL real de su LinkedIn antes de publicar
     linkedin: { label: 'Melany Santiesteban', url: '#' },
-    // TODO: Melany debe añadir su URL de portafolio (Behance / Drive / sitio propio)
+    // TODO: Melany debe añadir la URL de su portafolio (Behance / Drive / sitio propio)
     portfolio: { label: 'Ver portafolio', url: '#' },
-    photo: '/melany.jpg',
+    photo: '/perfil.jpeg',
+    monogram: 'MS',
   },
 
   profile: [
     'Estudiante de Diseño de Interiores en tercer año, con formación en el desarrollo y ejecución de proyectos enfocados en la funcionalidad, la estética y la coherencia espacial. Me especializo en la creación de espacios cálidos y visualmente equilibrados, adaptados a las necesidades específicas de cada usuario.',
     'Cuento con experiencia en elaboración y lectura de planos técnicos, modelado y visualización 3D, así como en el desarrollo de propuestas conceptuales, moodboards y memorias descriptivas para proyectos residenciales, comerciales e institucionales.',
     'Manejo herramientas como AutoCAD, SketchUp, D5, Twinmotion y Photoshop para la representación de proyectos de diseño.',
+    'Actualmente busco oportunidades para seguir creciendo profesionalmente y aportar valor a través del diseño.',
   ],
+
+  pullQuote: 'Visualización 3D + planimetría técnica.',
 
   education: [
     {
@@ -71,18 +85,13 @@ export const cv = {
   ] as ExperienceItem[],
 
   skills: {
-    software: [
-      'AutoCAD',
-      'SketchUp',
-      'D5 Render',
-      'Twinmotion',
-      'Photoshop',
-    ],
-    technical: [
-      'Elaboración y lectura de planos técnicos',
-      'Modelado y visualización 3D',
-      'Moodboards y memorias descriptivas',
-      'Selección de materiales, iluminación y mobiliario',
+    software: ['AutoCAD', 'SketchUp', 'D5 Render', 'Twinmotion', 'Photoshop'],
+    disciplines: [
+      'Visualización arquitectónica',
+      'Interpretación de planos técnicos',
+      'Modelado 3D',
+      'Renderizado 3D',
+      'Diseño de interiores',
     ],
     soft: [
       'Comunicación visual efectiva',
@@ -94,6 +103,8 @@ export const cv = {
     ],
   },
 
+  tools: ['AUTOCAD', 'SKETCHUP', 'D5 RENDER', 'TWINMOTION', 'PHOTOSHOP'],
+
   certifications: [
     { name: 'AutoCAD', issuer: 'USMA', date: 'may 2025' },
     { name: 'SketchUp', issuer: 'USMA', date: 'jun 2025' },
@@ -104,4 +115,14 @@ export const cv = {
     { name: 'Español', level: 'Nativo', score: 5 },
     { name: 'Inglés', level: 'Intermedio', score: 4 },
   ] as Language[],
+
+  projects: {
+    heading: 'Renders y visualización 3D',
+    caption:
+      'Proyecto Residencial · Dormitorio · Modelado y renderizado en D5 y Twinmotion · 2025',
+    items: Array.from({ length: 11 }, (_, i) => ({
+      src: `/renders/${i + 1}.jpeg`,
+      alt: `Render ${i + 1} — visualización 3D de interior por Melany Santiesteban`,
+    })) as Project[],
+  },
 }
