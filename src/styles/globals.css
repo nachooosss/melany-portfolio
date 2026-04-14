@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F5F1EC;
+  --surface: #FFFFFF;
+  --ink: #1C1917;
+  --muted: #6B5F55;
+  --accent: #9C6B4F;
+  --line: #E5DED4;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.font-display {
+  font-family: 'Fraunces', serif;
+  letter-spacing: -0.02em;
+}
+
+.section-gutter {
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+@media (min-width: 1024px) {
+  .section-gutter {
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+}
+
+.section-number {
+  font-family: 'Fraunces', serif;
+  color: var(--accent);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--line);
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Printable CV is off-screen by default; html2pdf captures it directly */
+.printable-root {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 210mm;
+  background: #ffffff;
+  color: #1C1917;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.printable-root * {
+  box-sizing: border-box;
+}
+
+@media print {
+  .printable-root {
+    position: static;
+    left: auto;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
