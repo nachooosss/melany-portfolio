@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Award } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
@@ -10,6 +11,7 @@ export default function Certifications() {
         <SectionHeading
           number="06"
           eyebrow="Certificaciones"
+          icon={Award}
           title={
             <>
               Formación <span className="italic text-muted">continua</span>

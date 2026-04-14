@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { GraduationCap } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
@@ -7,7 +8,12 @@ export default function Education() {
   return (
     <section id="education" className="section-gutter py-24 md:py-32 border-t border-line">
       <div className="max-content">
-        <SectionHeading number="04" eyebrow="Formación" title="Academia" />
+        <SectionHeading
+          number="04"
+          eyebrow="Formación"
+          icon={GraduationCap}
+          title="Academia"
+        />
 
         <motion.div
           variants={staggerContainer}

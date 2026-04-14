@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Linkedin } from 'lucide-react'
+import { Mail, Phone, MapPin, Linkedin, Send } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
@@ -11,6 +11,7 @@ export default function Contact() {
         <SectionHeading
           number="08"
           eyebrow="Contacto"
+          icon={Send}
           title={
             <>
               ¿Trabajamos <span className="italic text-muted">juntos?</span>

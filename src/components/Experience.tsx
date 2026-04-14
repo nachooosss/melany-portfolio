@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Briefcase } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
@@ -10,6 +11,7 @@ export default function Experience() {
         <SectionHeading
           number="03"
           eyebrow="Experiencia"
+          icon={Briefcase}
           title={
             <>
               Proyectos <span className="italic text-muted">seleccionados</span>

@@ -1,5 +1,13 @@
-import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useScroll,
+  useTransform,
+  animate,
+} from 'framer-motion'
 import { useEffect, useRef } from 'react'
+import type { LucideIcon } from 'lucide-react'
 import { fadeUp, revealViewport } from '../hooks/useScrollReveal'
 
 type Props = {
@@ -7,11 +15,25 @@ type Props = {
   eyebrow: string
   title: React.ReactNode
   align?: 'left' | 'right'
+  icon?: LucideIcon
 }
 
-export default function SectionHeading({ number, eyebrow, title, align = 'left' }: Props) {
+export default function SectionHeading({
+  number,
+  eyebrow,
+  title,
+  align = 'left',
+  icon: Icon,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.4 })
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+  const ghostX = useTransform(scrollYProgress, [0, 1], ['-4%', '10%'])
+  const ghostY = useTransform(scrollYProgress, [0, 1], ['0px', '-30px'])
 
   const count = useMotionValue(0)
   const rounded = useTransform(count, (v) => String(Math.floor(v)).padStart(2, '0'))
@@ -29,20 +51,24 @@ export default function SectionHeading({ number, eyebrow, title, align = 'left' 
 
   return (
     <div ref={ref} className="relative mb-16">
-      <div
+      <motion.div
         className="absolute inset-0 flex items-start pointer-events-none select-none"
         aria-hidden
-        style={{ justifyContent: align === 'right' ? 'flex-end' : 'flex-start' }}
+        style={{
+          justifyContent: align === 'right' ? 'flex-end' : 'flex-start',
+          x: ghostX,
+          y: ghostY,
+        }}
       >
         <motion.span
           className="ghost-number"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 0.7, y: 0 } : {}}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, scale: 0.92, filter: 'blur(14px)' }}
+          animate={inView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : {}}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         >
           {number}
         </motion.span>
-      </div>
+      </motion.div>
 
       <motion.div
         variants={fadeUp}
@@ -51,15 +77,47 @@ export default function SectionHeading({ number, eyebrow, title, align = 'left' 
         viewport={revealViewport}
         className="relative pt-12"
       >
-        <div className="flex items-baseline gap-4">
-          <motion.span className="section-number">
+        <div className="flex items-center gap-5 mb-5">
+          {Icon && (
+            <motion.span
+              className="section-icon"
+              initial={{ opacity: 0, scale: 0.7, rotate: -12 }}
+              animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            >
+              <Icon size={22} strokeWidth={1.3} className="text-accent" />
+            </motion.span>
+          )}
+          <span className="section-number inline-flex items-baseline gap-2">
             <motion.span>{rounded}</motion.span>
-            <span> — {eyebrow}</span>
-          </motion.span>
+            <span className="text-muted">—</span>
+            <span>{eyebrow}</span>
+          </span>
         </div>
-        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mt-4 leading-[0.95]">
-          {title}
-        </h2>
+
+        <div className="overflow-hidden pb-2">
+          <motion.h2
+            className="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95]"
+            initial={{ y: '110%', opacity: 0 }}
+            animate={inView ? { y: '0%', opacity: 1 } : {}}
+            transition={{
+              duration: 1.05,
+              ease: [0.22, 1, 0.36, 1],
+              delay: 0.15,
+            }}
+          >
+            {title}
+          </motion.h2>
+        </div>
+
+        <motion.div
+          className="ornament-rule mt-6 max-w-sm origin-left"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+        >
+          <span className="ornament-glyph" aria-hidden />
+        </motion.div>
       </motion.div>
     </div>
   )

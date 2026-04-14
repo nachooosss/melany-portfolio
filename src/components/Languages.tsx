@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Languages as LanguagesIcon } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
@@ -7,7 +8,12 @@ export default function Languages() {
   return (
     <section id="languages" className="section-gutter py-24 md:py-32 border-t border-line">
       <div className="max-content">
-        <SectionHeading number="07" eyebrow="Idiomas" title="Comunicación" />
+        <SectionHeading
+          number="07"
+          eyebrow="Idiomas"
+          icon={LanguagesIcon}
+          title="Comunicación"
+        />
 
         <motion.ul
           variants={staggerContainer}

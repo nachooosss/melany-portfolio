@@ -259,7 +259,7 @@ export function CVDocument() {
           <View style={styles.col}>
             <SectionTitle number="05" title="Certificaciones" />
             {cv.certifications.map((c, i) => (
-              <View key={i} style={[styles.certRow, i === 0 && styles.certRowFirst]}>
+              <View key={i} style={i === 0 ? [styles.certRow, styles.certRowFirst] : styles.certRow}>
                 <Text>
                   <Text style={styles.certName}>{c.name}</Text>{' '}
                   <Text style={styles.certIssuer}>· {c.issuer}</Text>
@@ -271,7 +271,7 @@ export function CVDocument() {
           <View style={styles.col}>
             <SectionTitle number="06" title="Idiomas" />
             {cv.languages.map((l, i) => (
-              <View key={i} style={[styles.langRow, i === 0 && styles.certRowFirst]}>
+              <View key={i} style={i === 0 ? [styles.langRow, styles.certRowFirst] : styles.langRow}>
                 <Text style={styles.certName}>{l.name}</Text>
                 <Text style={styles.certDate}>{l.level}</Text>
               </View>

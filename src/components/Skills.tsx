@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Palette } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
@@ -18,6 +19,7 @@ export default function Skills() {
         <SectionHeading
           number="05"
           eyebrow="Habilidades"
+          icon={Palette}
           title={
             <>
               Herramientas &amp; <span className="italic text-muted">criterio</span>

@@ -1,4 +1,11 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
 import { ArrowRight, MapPin } from 'lucide-react'
 import { useRef } from 'react'
 import { cv } from '../data/cv'
@@ -43,7 +50,31 @@ export default function Hero() {
     target: sectionRef,
     offset: ['start start', 'end start'],
   })
-  const photoY = useTransform(scrollYProgress, [0, 1], ['0%', '15%'])
+
+  const photoY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-40%'])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.55, 0.95], [1, 0.85, 0])
+  const contentBlur = useTransform(scrollYProgress, [0, 1], ['0px', '8px'])
+  const contentFilter = useMotionTemplate`blur(${contentBlur})`
+
+  // 3D tilt on mouse for the photo stack
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const sMx = useSpring(mx, { stiffness: 120, damping: 20 })
+  const sMy = useSpring(my, { stiffness: 120, damping: 20 })
+  const tiltX = useTransform(sMy, [-0.5, 0.5], ['8deg', '-8deg'])
+  const tiltY = useTransform(sMx, [-0.5, 0.5], ['-10deg', '10deg'])
+  const stackTransform = useMotionTemplate`rotateX(${tiltX}) rotateY(${tiltY})`
+
+  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    mx.set((e.clientX - rect.left) / rect.width - 0.5)
+    my.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+  const resetTilt = () => {
+    mx.set(0)
+    my.set(0)
+  }
 
   return (
     <header
@@ -58,9 +89,13 @@ export default function Hero() {
       </span>
 
       <nav className="relative z-10 max-content w-full flex items-center justify-between">
-        <span className="font-display text-lg tracking-tight">
-          {cv.personal.monogram}.
-        </span>
+        <div className="flex items-center gap-4">
+          <span className="font-display text-lg tracking-tight">
+            {cv.personal.monogram}.
+          </span>
+          <span className="hidden sm:inline-block h-4 w-px bg-line" />
+          <span className="hidden sm:inline est-mark">Est. MMXXVI</span>
+        </div>
         <div className="hidden md:flex items-center gap-8 text-sm text-muted">
           <a href="#about" className="link-underline hover:text-ink transition-colors">
             Sobre mí
@@ -77,7 +112,10 @@ export default function Hero() {
         </div>
       </nav>
 
-      <div className="relative z-10 max-content w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mt-10 lg:mt-0">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity, filter: contentFilter }}
+        className="relative z-10 max-content w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mt-10 lg:mt-0"
+      >
         <div className="lg:col-span-7 order-2 lg:order-1">
           <motion.p
             initial={{ opacity: 0 }}
@@ -118,10 +156,7 @@ export default function Hero() {
             transition={{ delay: 1.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mt-6 inline-flex items-center gap-3 border border-line bg-surface/60 px-4 py-2 text-xs text-muted"
           >
-            <span
-              className="h-2 w-2 rounded-full bg-accent animate-pulse"
-              aria-hidden
-            />
+            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" aria-hidden />
             {cv.personal.availabilityPill}
           </motion.div>
 
@@ -158,38 +193,87 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{ y: photoY }}
-            className="relative w-[200px] sm:w-[240px] lg:w-[360px] max-w-full"
+            style={{ y: photoY, perspective: 1400 }}
+            className="relative w-[220px] sm:w-[260px] lg:w-[380px] max-w-full"
           >
-            <div
-              className="relative border border-line bg-line overflow-hidden"
-              style={{ aspectRatio: '2 / 3' }}
+            <motion.div
+              onMouseMove={handleTilt}
+              onMouseLeave={resetTilt}
+              style={{
+                transform: stackTransform,
+                transformStyle: 'preserve-3d',
+              }}
+              className="relative"
             >
-              <img
-                src={cv.personal.photo}
-                alt="Melany Santiesteban, diseñadora de interiores en Panamá"
-                loading="eager"
-                fetchPriority="high"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  const el = e.currentTarget
-                  el.style.display = 'none'
-                  const parent = el.parentElement
-                  if (parent) {
-                    parent.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Fraunces,serif;color:${
-                      getComputedStyle(document.documentElement).getPropertyValue('--muted') ||
-                      '#6B5F55'
-                    };font-size:14px;padding:1rem;text-align:center">Añade public/perfil.jpg</div>`
-                  }
+              {/* Layer 3 — furthest back, empty bordered frame (top-left) */}
+              <div
+                aria-hidden
+                className="absolute border border-accent/45"
+                style={{
+                  inset: '-22px 22px 22px -22px',
+                  transform: 'translateZ(-60px)',
+                  background:
+                    'repeating-linear-gradient(45deg, rgba(156,107,79,0.06) 0 2px, transparent 2px 8px)',
                 }}
               />
-            </div>
-            <span className="hidden lg:block absolute -left-8 top-1/2 -translate-y-1/2 vertical-rl">
-              Retrato · 2026
+
+              {/* Layer 2 — middle, filled warm tint (bottom-right) */}
+              <div
+                aria-hidden
+                className="absolute border border-line"
+                style={{
+                  inset: '18px -18px -18px 18px',
+                  transform: 'translateZ(-30px)',
+                  background: 'rgba(156, 107, 79, 0.12)',
+                  boxShadow: '0 20px 60px -30px rgba(28,25,23,0.35)',
+                }}
+              />
+
+              {/* Layer 1 — the real photo, untouched */}
+              <div
+                className="relative border border-line bg-line overflow-hidden"
+                style={{
+                  aspectRatio: '2 / 3',
+                  transform: 'translateZ(0)',
+                  boxShadow: '0 30px 80px -40px rgba(28,25,23,0.4)',
+                }}
+              >
+                <img
+                  src={cv.personal.photo}
+                  alt="Melany Santiesteban, diseñadora de interiores en Panamá"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const el = e.currentTarget
+                    el.style.display = 'none'
+                    const parent = el.parentElement
+                    if (parent) {
+                      parent.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Fraunces,serif;color:#6B5F55;font-size:14px;padding:1rem;text-align:center">Añade public/perfil.jpeg</div>`
+                    }
+                  }}
+                />
+              </div>
+
+              {/* Corner accent tick (foreground) */}
+              <div
+                aria-hidden
+                className="absolute -top-2 -right-2 w-8 h-8 border-t border-r border-accent"
+                style={{ transform: 'translateZ(12px)' }}
+              />
+              <div
+                aria-hidden
+                className="absolute -bottom-2 -left-2 w-8 h-8 border-b border-l border-accent"
+                style={{ transform: 'translateZ(12px)' }}
+              />
+            </motion.div>
+
+            <span className="hidden lg:block absolute -left-10 top-1/2 -translate-y-1/2 vertical-rl">
+              Retrato · MMXXVI
             </span>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { UserRound } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
@@ -10,6 +11,7 @@ export default function About() {
         <SectionHeading
           number="01"
           eyebrow="Sobre mí"
+          icon={UserRound}
           title={
             <>
               Diseño con <span className="italic text-muted">intención</span>.
@@ -65,7 +67,12 @@ export default function About() {
           <motion.div variants={fadeUp} className="lg:col-span-7">
             <div className="space-y-6 max-w-prose text-ink/90">
               {cv.profile.map((p, i) => (
-                <p key={i} className="text-base md:text-lg leading-relaxed">
+                <p
+                  key={i}
+                  className={`text-base md:text-lg leading-relaxed ${
+                    i === 0 ? 'drop-cap' : ''
+                  }`}
+                >
                   {p}
                 </p>
               ))}
