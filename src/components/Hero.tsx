@@ -7,9 +7,11 @@ import {
   useTransform,
 } from 'framer-motion'
 import { ArrowRight, MapPin } from 'lucide-react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { cv } from '../data/cv'
 import DownloadButton from './DownloadButton'
+import Logo from './Logo'
+import SkeletonImage from './SkeletonImage'
 
 const charVariants = {
   hidden: { opacity: 0, y: 40, filter: 'blur(10px)' },
@@ -46,15 +48,25 @@ function SplitName({ text, base = 0 }: { text: string; base?: number }) {
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)')
+    const update = () => setIsMobile(mql.matches)
+    update()
+    mql.addEventListener('change', update)
+    return () => mql.removeEventListener('change', update)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   })
 
-  const photoY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-40%'])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.55, 0.95], [1, 0.85, 0])
-  const contentBlur = useTransform(scrollYProgress, [0, 1], ['0px', '8px'])
+  const photoY = useTransform(scrollYProgress, [0, 1], ['0%', '15%'])
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-22%'])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.82, 1], [1, 1, 0])
+  const contentBlur = useTransform(scrollYProgress, [0, 0.8, 1], ['0px', '0px', '4px'])
   const contentFilter = useMotionTemplate`blur(${contentBlur})`
 
   // 3D tilt on mouse for the photo stack
@@ -89,11 +101,9 @@ export default function Hero() {
       </span>
 
       <nav className="relative z-10 max-content w-full flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span className="font-display text-lg tracking-tight">
-            {cv.personal.monogram}.
-          </span>
-          <span className="hidden sm:inline-block h-4 w-px bg-line" />
+        <div className="flex items-center gap-5">
+          <Logo height={64} />
+          <span className="hidden sm:inline-block h-5 w-px bg-line" />
           <span className="hidden sm:inline est-mark">Est. MMXXVI</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm text-muted">
@@ -113,7 +123,11 @@ export default function Hero() {
       </nav>
 
       <motion.div
-        style={{ y: contentY, opacity: contentOpacity, filter: contentFilter }}
+        style={{
+          y: contentY,
+          opacity: contentOpacity,
+          filter: isMobile ? 'none' : contentFilter,
+        }}
         className="relative z-10 max-content w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mt-10 lg:mt-0"
       >
         <div className="lg:col-span-7 order-2 lg:order-1">
@@ -127,8 +141,8 @@ export default function Hero() {
           </motion.p>
 
           <h1
-            className="font-display font-medium leading-[0.9] text-ink"
-            style={{ fontSize: 'clamp(2.4rem, 9vw, 6.5rem)' }}
+            className="font-display font-medium leading-[0.88] text-ink"
+            style={{ fontSize: 'clamp(2.75rem, 10.5vw, 7.5rem)' }}
           >
             <span className="block">
               <SplitName text="Melany" />
@@ -138,25 +152,59 @@ export default function Hero() {
             </span>
           </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8 max-w-prose"
-          >
-            <p className="text-base md:text-lg text-ink">{cv.personal.role}</p>
-            <p className="mt-2 text-muted md:text-lg leading-relaxed">
-              {cv.personal.tagline}
+          <div className="mt-10 max-w-prose">
+            <p
+              className="text-lg md:text-xl text-ink"
+              aria-label={cv.personal.role}
+            >
+              {cv.personal.role.split('').map((ch, i) => (
+                <motion.span
+                  key={`role-${i}`}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 1.0 + i * 0.015,
+                    duration: 0.35,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="inline-block"
+                >
+                  {ch === ' ' ? '\u00A0' : ch}
+                </motion.span>
+              ))}
             </p>
-          </motion.div>
+            <p
+              className="mt-3 text-muted text-lg md:text-xl leading-relaxed"
+              aria-label={cv.personal.tagline}
+            >
+              {cv.personal.tagline.split('').map((ch, i) => (
+                <motion.span
+                  key={`tag-${i}`}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 1.6 + i * 0.011,
+                    duration: 0.3,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="inline-block"
+                >
+                  {ch === ' ' ? '\u00A0' : ch}
+                </motion.span>
+              ))}
+            </p>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 inline-flex items-center gap-3 border border-line bg-surface/60 px-4 py-2 text-xs text-muted"
+            className="mt-7 inline-flex items-center gap-3 border border-line bg-surface/70 px-5 py-2.5 text-sm text-muted"
+            style={{
+              boxShadow: '0 8px 24px -12px rgba(28,25,23,0.18)',
+            }}
           >
-            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" aria-hidden />
+            <span className="h-2.5 w-2.5 rounded-full bg-accent animate-pulse" aria-hidden />
             {cv.personal.availabilityPill}
           </motion.div>
 
@@ -164,7 +212,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-5 flex items-center gap-2 text-sm text-muted"
+            className="mt-6 flex items-center gap-2 text-base text-muted"
           >
             <MapPin size={14} strokeWidth={1.5} />
             <span>{cv.personal.location}</span>
@@ -230,30 +278,18 @@ export default function Hero() {
               />
 
               {/* Layer 1 — the real photo, untouched */}
-              <div
-                className="relative border border-line bg-line overflow-hidden"
+              <SkeletonImage
+                src={cv.personal.photo}
+                alt="Melany Santiesteban, diseñadora de interiores en Panamá"
+                eager
+                fetchPriority="high"
+                className="relative border border-line bg-line"
                 style={{
                   aspectRatio: '2 / 3',
                   transform: 'translateZ(0)',
                   boxShadow: '0 30px 80px -40px rgba(28,25,23,0.4)',
                 }}
-              >
-                <img
-                  src={cv.personal.photo}
-                  alt="Melany Santiesteban, diseñadora de interiores en Panamá"
-                  loading="eager"
-                  fetchPriority="high"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const el = e.currentTarget
-                    el.style.display = 'none'
-                    const parent = el.parentElement
-                    if (parent) {
-                      parent.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Fraunces,serif;color:#6B5F55;font-size:14px;padding:1rem;text-align:center">Añade public/perfil.jpeg</div>`
-                    }
-                  }}
-                />
-              </div>
+              />
 
               {/* Corner accent tick (foreground) */}
               <div

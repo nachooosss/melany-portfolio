@@ -15,6 +15,8 @@ import StickyNav from './components/StickyNav'
 import FloatingContacts from './components/FloatingContacts'
 import ScrollBackground from './components/ScrollBackground'
 import ScrollProgress from './components/ScrollProgress'
+import Logo from './components/Logo'
+import Preloader from './components/Preloader'
 import { cv } from './data/cv'
 
 export default function App() {
@@ -24,6 +26,7 @@ export default function App() {
 
   return (
     <>
+      <Preloader />
       <ScrollBackground />
       <ScrollProgress />
       <CustomCursor />
@@ -48,7 +51,7 @@ export default function App() {
             </div>
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <div className="flex items-center gap-4">
-                <span className="font-display text-lg">{cv.personal.monogram}.</span>
+                <Logo height={44} />
                 <span className="h-4 w-px bg-line" />
                 <span className="est-mark">Est. MMXXVI</span>
               </div>

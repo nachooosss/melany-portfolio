@@ -1,9 +1,9 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { useState } from 'react'
 import { Download } from 'lucide-react'
-import { cv } from '../data/cv'
 import { pdf } from '@react-pdf/renderer'
 import { CVDocument } from './PrintableCV'
+import Logo from './Logo'
 
 const links = [
   { label: 'Sobre mí', href: '#about' },
@@ -54,51 +54,115 @@ export default function StickyNav() {
       {visible && (
         <motion.nav
           key="sticky-nav"
-          initial={{ y: -80, opacity: 0 }}
+          initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -80, opacity: 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed top-4 left-4 right-4 z-50"
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed top-5 left-4 right-4 md:left-6 md:right-6 z-50"
         >
           <div
-            className="max-content flex items-center justify-between gap-4 px-4 md:px-6 py-3 border border-line"
+            className="relative max-content"
             style={{
-              background: 'rgba(245, 241, 236, 0.82)',
-              backdropFilter: 'blur(14px) saturate(140%)',
-              WebkitBackdropFilter: 'blur(14px) saturate(140%)',
-              boxShadow: '0 10px 40px -20px rgba(28, 25, 23, 0.25)',
+              background:
+                'linear-gradient(180deg, rgba(224, 206, 176, 0.88) 0%, rgba(201, 185, 163, 0.92) 100%)',
+              backdropFilter: 'blur(22px) saturate(160%)',
+              WebkitBackdropFilter: 'blur(22px) saturate(160%)',
+              border: '1px solid rgba(156, 107, 79, 0.35)',
+              boxShadow:
+                '0 30px 70px -25px rgba(77, 52, 30, 0.35), 0 8px 24px -8px rgba(77, 52, 30, 0.18), inset 0 1px 0 rgba(255, 253, 248, 0.45)',
             }}
           >
-            <a
-              href="#top"
-              onClick={(e) => {
-                e.preventDefault()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+            {/* Top accent strip */}
+            <div
+              aria-hidden
+              className="absolute top-0 left-0 right-0 h-[2px]"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(156,107,79,0) 0%, rgba(156,107,79,1) 25%, rgba(156,107,79,1) 75%, rgba(156,107,79,0) 100%)',
               }}
-              className="font-display text-lg tracking-tight"
-            >
-              {cv.personal.monogram}.
-            </a>
+            />
 
-            <ul className="hidden md:flex items-center gap-7 text-sm text-muted">
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="link-underline hover:text-ink transition-colors">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {/* Corner ticks */}
+            <span
+              aria-hidden
+              className="absolute top-2 left-2 w-3 h-3 border-t border-l border-accent/80"
+            />
+            <span
+              aria-hidden
+              className="absolute top-2 right-2 w-3 h-3 border-t border-r border-accent/80"
+            />
+            <span
+              aria-hidden
+              className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-accent/80"
+            />
+            <span
+              aria-hidden
+              className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-accent/80"
+            />
 
-            <button
-              type="button"
-              onClick={downloadPdf}
-              disabled={pdfLoading}
-              className="inline-flex items-center gap-2 bg-ink text-bg px-4 py-2 text-xs uppercase tracking-widest hover:bg-accent transition-colors disabled:opacity-50"
-            >
-              <Download size={14} strokeWidth={1.6} />
-              {pdfLoading ? 'Generando…' : 'CV'}
-            </button>
+            <div className="relative flex items-center justify-between gap-4 pl-6 pr-3 md:pl-8 md:pr-4 py-4">
+              <a
+                href="#top"
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
+                aria-label="Volver al inicio"
+                className="flex items-center gap-4 text-ink group"
+              >
+                <Logo height={44} />
+                <span className="hidden lg:inline-block h-6 w-px bg-accent/60" />
+                <span
+                  className="hidden lg:inline font-display italic text-[11px] tracking-[0.3em] uppercase text-muted group-hover:text-accent transition-colors"
+                >
+                  Est. MMXXVI
+                </span>
+              </a>
+
+              <ul className="hidden md:flex items-center gap-8 text-[13px] text-ink/80 font-medium">
+                {links.map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      className="relative tracking-[0.08em] hover:text-ink transition-colors group"
+                    >
+                      {l.label}
+                      <span
+                        aria-hidden
+                        className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                type="button"
+                onClick={downloadPdf}
+                disabled={pdfLoading}
+                className="group relative inline-flex items-center gap-2 px-5 py-3 text-[11px] uppercase tracking-[0.2em] font-medium text-bg transition-colors disabled:opacity-50 overflow-hidden"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgba(156,107,79,1) 0%, rgba(128,82,57,1) 100%)',
+                  boxShadow:
+                    '0 14px 30px -12px rgba(156, 107, 79, 0.55), inset 0 1px 0 rgba(245, 241, 236, 0.18)',
+                  border: '1px solid rgba(156, 107, 79, 0.8)',
+                }}
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 bg-bg origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                />
+                <Download
+                  size={14}
+                  strokeWidth={1.8}
+                  className="relative transition-all group-hover:translate-y-0.5 group-hover:text-ink"
+                />
+                <span className="relative group-hover:text-ink transition-colors">
+                  {pdfLoading ? 'Generando…' : 'Descargar CV'}
+                </span>
+              </button>
+            </div>
           </div>
         </motion.nav>
       )}

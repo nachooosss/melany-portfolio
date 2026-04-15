@@ -9,20 +9,26 @@ const items = [
     label: 'WhatsApp',
     href: cv.personal.whatsapp,
     Icon: MessageCircle,
+    primary: true,
   },
   {
     key: 'email',
     label: 'Email',
     href: `mailto:${cv.personal.email}`,
     Icon: Mail,
+    primary: false,
   },
   {
     key: 'linkedin',
     label: 'LinkedIn',
     href: cv.personal.linkedin.url,
     Icon: Linkedin,
+    primary: false,
   },
 ]
+
+const shadow =
+  '0 20px 45px -15px rgba(28, 25, 23, 0.4), 0 6px 16px -6px rgba(28, 25, 23, 0.18)'
 
 export default function FloatingContacts() {
   const { scrollY } = useScroll()
@@ -44,7 +50,7 @@ export default function FloatingContacts() {
           className="fixed right-4 md:right-6 bottom-6 md:bottom-10 z-40 flex flex-col items-end gap-3"
         >
           <ul className="flex flex-col gap-3">
-            {items.map(({ key, label, href, Icon }, i) => (
+            {items.map(({ key, label, href, Icon, primary }, i) => (
               <motion.li
                 key={key}
                 initial={{ opacity: 0, x: 20 }}
@@ -60,14 +66,35 @@ export default function FloatingContacts() {
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel={href.startsWith('http') ? 'noreferrer' : undefined}
                   aria-label={label}
-                  className="group relative flex items-center justify-center h-12 w-12 border border-line bg-bg/90 backdrop-blur hover:bg-ink hover:border-ink transition-colors"
+                  className={`group relative flex items-center justify-center h-16 w-16 backdrop-blur-md transition-colors ${
+                    primary
+                      ? 'bg-accent text-bg hover:bg-ink'
+                      : 'bg-bg/95 text-ink hover:bg-ink hover:text-bg'
+                  }`}
+                  style={{
+                    border: primary
+                      ? '1px solid rgba(156, 107, 79, 0.9)'
+                      : '1px solid rgba(201, 185, 163, 0.9)',
+                    boxShadow: shadow,
+                  }}
                 >
-                  <Icon
-                    size={18}
-                    strokeWidth={1.6}
-                    className="text-ink group-hover:text-bg transition-colors"
-                  />
-                  <span className="pointer-events-none absolute right-[calc(100%+0.75rem)] top-1/2 -translate-y-1/2 whitespace-nowrap bg-ink text-bg text-[10px] uppercase tracking-widest px-2.5 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Icon size={24} strokeWidth={1.8} />
+                  {primary && (
+                    <motion.span
+                      aria-hidden
+                      className="absolute inset-0 rounded-none border border-accent/60 pointer-events-none"
+                      animate={{
+                        scale: [1, 1.25, 1],
+                        opacity: [0.8, 0, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: 'easeOut',
+                      }}
+                    />
+                  )}
+                  <span className="pointer-events-none absolute right-[calc(100%+0.75rem)] top-1/2 -translate-y-1/2 whitespace-nowrap bg-ink text-bg text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                     {label}
                   </span>
                 </a>
@@ -79,12 +106,16 @@ export default function FloatingContacts() {
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             aria-label="Volver al inicio"
-            className="group flex items-center justify-center h-12 w-12 border border-line bg-bg/90 backdrop-blur hover:bg-accent hover:border-accent transition-colors"
+            className="group flex items-center justify-center h-16 w-16 bg-bg/95 backdrop-blur-md hover:bg-accent transition-colors"
+            style={{
+              border: '1px solid rgba(201, 185, 163, 0.9)',
+              boxShadow: shadow,
+            }}
           >
             <ChevronUp
-              size={18}
-              strokeWidth={1.6}
-              className="text-ink group-hover:text-bg transition-colors"
+              size={24}
+              strokeWidth={1.8}
+              className="text-ink group-hover:text-bg transition-all group-hover:-translate-y-0.5"
             />
           </button>
         </motion.aside>

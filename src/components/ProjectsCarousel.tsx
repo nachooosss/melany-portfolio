@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight, Maximize2, ImageIcon } from 'lucide-react'
 import { cv } from '../data/cv'
 import SectionHeading from './SectionHeading'
 import Lightbox from './Lightbox'
+import SkeletonImage from './SkeletonImage'
 
 export default function ProjectsCarousel() {
   const items = cv.projects.items
@@ -30,11 +31,22 @@ export default function ProjectsCarousel() {
   const prev = useCallback(() => go(index - 1), [go, index])
   const next = useCallback(() => go(index + 1), [go, index])
 
+  const isFirstRenderRef = useRef(true)
   useEffect(() => {
-    const el = stripRef.current?.querySelector<HTMLButtonElement>(
-      `[data-thumb="${index}"]`,
-    )
-    el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    if (isFirstRenderRef.current) {
+      isFirstRenderRef.current = false
+      return
+    }
+    const container = stripRef.current
+    if (!container) return
+    const el = container.querySelector<HTMLButtonElement>(`[data-thumb="${index}"]`)
+    if (!el) return
+    // Scroll only the strip horizontally — never the page vertically.
+    const containerRect = container.getBoundingClientRect()
+    const elRect = el.getBoundingClientRect()
+    const offset =
+      elRect.left - containerRect.left - containerRect.width / 2 + elRect.width / 2
+    container.scrollBy({ left: offset, behavior: 'smooth' })
   }, [index])
 
   useEffect(() => {
@@ -88,14 +100,27 @@ export default function ProjectsCarousel() {
   const slideVariants = {
     enter: (dir: number) => ({
       opacity: 0,
-      scale: 0.96,
-      x: dir * 40,
+      rotateY: dir * 45,
+      x: dir * 80,
+      z: -180,
+      scale: 0.9,
+      filter: 'blur(8px)',
     }),
-    center: { opacity: 1, scale: 1, x: 0 },
+    center: {
+      opacity: 1,
+      rotateY: 0,
+      x: 0,
+      z: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+    },
     exit: (dir: number) => ({
       opacity: 0,
-      scale: 0.98,
-      x: -dir * 40,
+      rotateY: -dir * 45,
+      x: -dir * 80,
+      z: -140,
+      scale: 0.92,
+      filter: 'blur(6px)',
     }),
   }
 
@@ -173,17 +198,25 @@ export default function ProjectsCarousel() {
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                      rotateY: { duration: 0.55 },
+                      filter: { duration: 0.35 },
+                    }}
                     onClick={() => setLightboxOpen(true)}
                     className="group relative block w-full aspect-[4/3] overflow-hidden border border-line bg-surface cursor-zoom-in"
                     aria-label="Abrir imagen en grande"
-                    style={{ transformStyle: 'preserve-3d' }}
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      backfaceVisibility: 'hidden',
+                    }}
                   >
-                    <img
+                    <SkeletonImage
                       src={active.src}
                       alt={active.alt}
-                      draggable={false}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      eager
+                      className="absolute inset-0 w-full h-full"
                     />
                     <div
                       aria-hidden
@@ -308,11 +341,10 @@ export default function ProjectsCarousel() {
                 aria-label={`Ver render ${i + 1}`}
                 aria-current={i === index}
               >
-                <img
+                <SkeletonImage
                   src={item.src}
                   alt=""
-                  draggable={false}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full"
                 />
                 {i === index && (
                   <motion.span
