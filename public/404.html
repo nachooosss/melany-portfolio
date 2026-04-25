@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Página perdida en el moodboard | Melany Santiesteban</title>
+    <meta name="description" content="Esta página se perdió en el moodboard. Volvé al portafolio de Melany Santiesteban." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#9C6B4F" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #F5F1EC;
+        --ink: #1C1917;
+        --muted: #6B5F55;
+        --accent: #9C6B4F;
+        --line: #C9B9A3;
+      }
+
+      *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        min-height: 100vh;
+        font-family: 'Inter', system-ui, sans-serif;
+        color: var(--ink);
+        cursor: default;
+        -webkit-user-select: none;
+        user-select: none;
+        overflow-x: hidden;
+      }
+
+      body {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.5rem;
+        background: linear-gradient(
+          180deg,
+          #F2EBDC 0%,
+          #EDDFC8 30%,
+          #E6D2B4 55%,
+          #EDDFC8 80%,
+          #F2EBDC 100%
+        );
+      }
+
+      /* Film grain overlay matching the main site */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.14;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        background-size: 240px 240px;
+      }
+
+      /* Soft vignette */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse at center, transparent 45%, rgba(77, 52, 30, 0.18) 100%);
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 620px;
+        text-align: center;
+        animation: fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Logo MS */
+      .logo {
+        display: inline-flex;
+        align-items: baseline;
+        margin-bottom: 3rem;
+        line-height: 0.85;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+
+      .logo-letter {
+        font-family: 'Fraunces', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: 2.75rem;
+        letter-spacing: -0.04em;
+        color: var(--ink);
+      }
+
+      .logo-dot {
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 500;
+        font-size: 2.75rem;
+        color: var(--accent);
+        margin-left: -0.04em;
+      }
+
+      /* Eyebrow */
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        content: '';
+        width: 24px;
+        height: 1px;
+        background: var(--line);
+      }
+
+      .ornament {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        transform: rotate(45deg);
+      }
+
+      /* Big 404 */
+      .code {
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 500;
+        font-size: clamp(7rem, 25vw, 14rem);
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        text-shadow: 0 30px 60px rgba(156, 107, 79, 0.25);
+      }
+
+      /* Title */
+      h1 {
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 500;
+        font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 1rem;
+      }
+
+      h1 em {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      /* Description */
+      .description {
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--muted);
+        max-width: 42ch;
+        margin: 0 auto 2.5rem;
+      }
+
+      /* Button */
+      .back-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 1rem 1.85rem;
+        background: var(--ink);
+        color: var(--bg);
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        overflow: hidden;
+        isolation: isolate;
+        transition: color 0.4s ease;
+        cursor: pointer;
+      }
+
+      .back-button::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        transform: translateX(-101%);
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: -1;
+      }
+
+      .back-button:hover::before {
+        transform: translateX(0);
+      }
+
+      .back-button svg {
+        transition: transform 0.3s ease;
+      }
+
+      .back-button:hover svg {
+        transform: translateX(-3px);
+      }
+
+      /* Footer mark */
+      .footer-mark {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        font-family: 'Fraunces', Georgia, serif;
+        font-style: italic;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--muted);
+        opacity: 0.7;
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .container,
+        .logo {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <a href="/" class="logo" aria-label="Melany Santiesteban — Inicio">
+        <span class="logo-letter">M</span>
+        <span class="logo-letter">s</span>
+        <span class="logo-dot">.</span>
+      </a>
+
+      <p class="eyebrow">
+        Error
+        <span class="ornament" aria-hidden="true"></span>
+        404
+      </p>
+
+      <h1 class="code">404</h1>
+
+      <h1>
+        Esta página se perdió <em>en el moodboard.</em>
+      </h1>
+
+      <p class="description">
+        El espacio que buscás no existe — o nunca llegó al render final. Volvé al
+        portafolio para ver los proyectos, renders y la trayectoria de Melany.
+      </p>
+
+      <a href="/" class="back-button" aria-label="Volver al portafolio">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Volver al portafolio
+      </a>
+    </main>
+
+    <p class="footer-mark">Melany Santiesteban · MS Interior Design · Panamá</p>
+  </body>
+</html>

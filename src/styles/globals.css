@@ -447,6 +447,37 @@ svg {
   }
 }
 
+/* === Cursor spotlight para Hero (solo desktop) ===
+ * Una luz radial terracota que sigue al mouse, dando sensación de
+ * profundidad e interactividad. Las CSS variables --mx/--my se actualizan
+ * desde JS via setProperty para máximo rendimiento (no React state).
+ */
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background: radial-gradient(
+    circle 420px at var(--mx, 50%) var(--my, 50%),
+    rgba(156, 107, 79, 0.18) 0%,
+    rgba(156, 107, 79, 0.08) 30%,
+    rgba(156, 107, 79, 0) 60%
+  );
+  mix-blend-mode: multiply;
+}
+
+.hero-spotlight.active {
+  opacity: 1;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .hero-spotlight {
+    display: none;
+  }
+}
+
 /* === Radial menu (CSS-only via :is + transform-origin) ===
  * Patrón: cada <li> está absolutamente posicionado con transform-origin
  * desplazado al centro virtual del círculo. Al activarse, cada uno rota

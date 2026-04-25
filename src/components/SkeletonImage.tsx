@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type Props = {
   src: string
@@ -11,10 +11,6 @@ type Props = {
   onErrorFallback?: React.ReactNode
 }
 
-/**
- * Image with a shimmer skeleton placeholder until the bitmap loads.
- * Fades the image in once onLoad fires.
- */
 export default function SkeletonImage({
   src,
   alt,
@@ -25,12 +21,21 @@ export default function SkeletonImage({
   fetchPriority,
   onErrorFallback,
 }: Props) {
+  const imgRef = useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = useState(false)
   const [errored, setErrored] = useState(false)
 
+  // Chromium dispara onLoad antes de que React attache el listener cuando la
+  // imagen ya está cacheada — chequeamos `complete` post-mount para no quedar
+  // colgados en opacity-0.
   useEffect(() => {
-    setLoaded(false)
     setErrored(false)
+    const img = imgRef.current
+    if (img && img.complete && img.naturalWidth > 0) {
+      setLoaded(true)
+    } else {
+      setLoaded(false)
+    }
   }, [src])
 
   return (
@@ -40,6 +45,7 @@ export default function SkeletonImage({
         <div className="absolute inset-0">{onErrorFallback}</div>
       ) : (
         <img
+          ref={imgRef}
           src={src}
           alt={alt}
           loading={eager ? 'eager' : 'lazy'}
@@ -50,7 +56,6 @@ export default function SkeletonImage({
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out ${
             loaded ? 'opacity-100' : 'opacity-0'
           } ${imgClassName}`}
-          // React 18 requires lowercase `fetchpriority` — pasarlo via spread bypasea el check
           {...{ fetchpriority: fetchPriority ?? (eager ? 'high' : 'low') }}
         />
       )}

@@ -47,6 +47,7 @@ function SplitName({ text, base = 0 }: { text: string; base?: number }) {
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
+  const spotlightRef = useRef<HTMLDivElement>(null)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -55,6 +56,41 @@ export default function Hero() {
     update()
     mql.addEventListener('change', update)
     return () => mql.removeEventListener('change', update)
+  }, [])
+
+  // Cursor spotlight — sigue al mouse en desktop (sin React state, máximo perf)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (!window.matchMedia('(pointer: fine)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const section = sectionRef.current
+    const spotlight = spotlightRef.current
+    if (!section || !spotlight) return
+
+    let raf = 0
+    const handleMove = (e: MouseEvent) => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        const rect = section.getBoundingClientRect()
+        const x = ((e.clientX - rect.left) / rect.width) * 100
+        const y = ((e.clientY - rect.top) / rect.height) * 100
+        spotlight.style.setProperty('--mx', `${x}%`)
+        spotlight.style.setProperty('--my', `${y}%`)
+      })
+    }
+    const handleEnter = () => spotlight.classList.add('active')
+    const handleLeave = () => spotlight.classList.remove('active')
+
+    section.addEventListener('mousemove', handleMove)
+    section.addEventListener('mouseenter', handleEnter)
+    section.addEventListener('mouseleave', handleLeave)
+    return () => {
+      cancelAnimationFrame(raf)
+      section.removeEventListener('mousemove', handleMove)
+      section.removeEventListener('mouseenter', handleEnter)
+      section.removeEventListener('mouseleave', handleLeave)
+    }
   }, [])
 
   const { scrollYProgress } = useScroll({
@@ -73,6 +109,9 @@ export default function Hero() {
       ref={sectionRef}
       className="relative section-gutter min-h-screen flex flex-col justify-between pt-8 pb-16 overflow-hidden"
     >
+      {/* Cursor spotlight (desktop only, controlado via CSS vars) */}
+      <div ref={spotlightRef} className="hero-spotlight" aria-hidden />
+
       <span
         className="hidden lg:block absolute left-4 top-1/2 -translate-y-1/2 vertical-rl"
         aria-hidden

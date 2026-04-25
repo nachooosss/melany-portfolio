@@ -14,8 +14,10 @@ import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReve
 import SectionHeading from './SectionHeading'
 import Section from './Section'
 import { EASE_OUT_EXPO } from '../constants/animation'
+import { useMagnetic } from '../hooks/useMagnetic'
 
 export default function Contact() {
+  const magnet = useMagnetic<HTMLAnchorElement>({ strength: 0.3, radius: 140 })
   return (
     <Section id="contact" padding="large">
       <SectionHeading
@@ -43,20 +45,21 @@ export default function Contact() {
           </p>
 
           <motion.a
+            ref={magnet.ref}
             href={cv.personal.whatsapp}
             target="_blank"
             rel="noreferrer"
             aria-label="Escribirme por WhatsApp"
-            whileHover={{ y: -3 }}
-            transition={{ type: 'spring', stiffness: 280, damping: 22 }}
-            className="group relative inline-flex items-center gap-4 pl-6 pr-7 py-5 text-bg overflow-hidden self-center md:self-start"
             style={{
+              x: magnet.x,
+              y: magnet.y,
               background:
                 'linear-gradient(135deg, rgba(156,107,79,1) 0%, rgba(128,82,57,1) 100%)',
               border: '1px solid rgba(156, 107, 79, 0.9)',
               boxShadow:
                 '0 24px 50px -18px rgba(156, 107, 79, 0.55), 0 6px 16px -6px rgba(28, 25, 23, 0.18), inset 0 1px 0 rgba(245, 241, 236, 0.18)',
             }}
+            className="group relative inline-flex items-center gap-4 pl-6 pr-7 py-5 text-bg overflow-hidden self-center md:self-start"
           >
             {/* Pulse ring atrás */}
             <motion.span
