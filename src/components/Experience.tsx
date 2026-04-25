@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m as motion } from 'framer-motion'
 import {
   Briefcase,
   Bed,
@@ -22,6 +22,7 @@ import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReve
 import SectionHeading from './SectionHeading'
 import MoodboardCarousel from './MoodboardCarousel'
 import { TECH_ICONS } from './TechIcons'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Bed,
@@ -62,7 +63,7 @@ export default function Experience() {
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={revealViewport}
-            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.6, ease: EASE_OUT_EXPO }}
             style={{ transformOrigin: 'top' }}
             className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-line"
             aria-hidden
@@ -73,7 +74,7 @@ export default function Experience() {
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={revealViewport}
-            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.6, ease: EASE_OUT_EXPO }}
             style={{ transformOrigin: 'top' }}
             className="lg:hidden absolute left-3 top-0 bottom-0 w-px bg-line"
             aria-hidden
@@ -95,7 +96,7 @@ export default function Experience() {
             initial={{ opacity: 0, scale: 0.6 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={revealViewport}
-            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: 0.4, ease: EASE_OUT_EXPO }}
             className="hidden lg:flex absolute left-1/2 -translate-x-1/2 -bottom-3 items-center justify-center"
           >
             <span className="h-3 w-3 bg-accent rotate-45" aria-hidden />

@@ -1,13 +1,8 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
+import { LazyMotion, domAnimation } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 import Hero from './components/Hero'
 import About from './components/About'
-import ProjectsCarousel from './components/ProjectsCarousel'
-import Experience from './components/Experience'
-import Education from './components/Education'
-import Skills from './components/Skills'
-import Certifications from './components/Certifications'
-import Languages from './components/Languages'
-import Contact from './components/Contact'
 import ToolsStrip from './components/ToolsStrip'
 import CustomCursor from './components/CustomCursor'
 import StickyNav from './components/StickyNav'
@@ -15,8 +10,17 @@ import FloatingContacts from './components/FloatingContacts'
 import ScrollBackground from './components/ScrollBackground'
 import ScrollProgress from './components/ScrollProgress'
 import Logo from './components/Logo'
-import Preloader from './components/Preloader'
 import { cv } from './data/cv'
+
+// Code-split below-the-fold + heavy components → menos JS en first paint
+const Preloader = lazy(() => import('./components/Preloader'))
+const ProjectsCarousel = lazy(() => import('./components/ProjectsCarousel'))
+const Experience = lazy(() => import('./components/Experience'))
+const Education = lazy(() => import('./components/Education'))
+const Skills = lazy(() => import('./components/Skills'))
+const Certifications = lazy(() => import('./components/Certifications'))
+const Languages = lazy(() => import('./components/Languages'))
+const Contact = lazy(() => import('./components/Contact'))
 
 export default function App() {
   useEffect(() => {
@@ -24,8 +28,10 @@ export default function App() {
   }, [])
 
   return (
-    <>
-      <Preloader />
+    <LazyMotion features={domAnimation}>
+      <Suspense fallback={null}>
+        <Preloader />
+      </Suspense>
       <ScrollBackground />
       <ScrollProgress />
       <CustomCursor />
@@ -35,13 +41,19 @@ export default function App() {
         <Hero />
         <About />
         <ToolsStrip />
-        <ProjectsCarousel />
-        <Experience />
-        <Education />
-        <Skills />
-        <Certifications />
-        <Languages />
-        <Contact />
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <ProjectsCarousel />
+        </Suspense>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Experience />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Education />
+          <Skills />
+          <Certifications />
+          <Languages />
+          <Contact />
+        </Suspense>
         <footer className="section-gutter py-16 border-t border-line">
           <div className="max-content">
             <div className="ornament-rule mb-10">
@@ -58,6 +70,7 @@ export default function App() {
           </div>
         </footer>
       </main>
-    </>
+      <Analytics />
+    </LazyMotion>
   )
 }

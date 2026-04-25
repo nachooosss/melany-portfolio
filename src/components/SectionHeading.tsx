@@ -1,5 +1,5 @@
 import {
-  motion,
+  m as motion,
   useInView,
   useMotionValue,
   useScroll,
@@ -9,6 +9,7 @@ import {
 import { useEffect, useRef } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import { fadeUp, revealViewport } from '../hooks/useScrollReveal'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 type Props = {
   number: string
@@ -43,7 +44,7 @@ export default function SectionHeading({
       const target = parseInt(number, 10)
       const controls = animate(count, target, {
         duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
+        ease: EASE_OUT_EXPO,
       })
       return () => controls.stop()
     }
@@ -65,7 +66,7 @@ export default function SectionHeading({
           className="ghost-number"
           initial={{ opacity: 0, scale: 0.92, filter: 'blur(14px)' }}
           animate={inView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : {}}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.1, ease: EASE_OUT_EXPO }}
         >
           {number}
         </motion.span>
@@ -84,7 +85,7 @@ export default function SectionHeading({
               className="section-icon"
               initial={{ opacity: 0, scale: 0.7, rotate: -12 }}
               animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.1 }}
             >
               <Icon size={22} strokeWidth={1.3} className="text-accent" />
             </motion.span>
@@ -103,7 +104,7 @@ export default function SectionHeading({
             animate={inView ? { y: '0%', opacity: 1 } : {}}
             transition={{
               duration: 1.05,
-              ease: [0.22, 1, 0.36, 1],
+              ease: EASE_OUT_EXPO,
               delay: 0.15,
             }}
           >
@@ -115,7 +116,7 @@ export default function SectionHeading({
           className="ornament-rule mt-6 max-w-sm mx-auto md:mx-0 origin-center md:origin-left"
           initial={{ scaleX: 0, opacity: 0 }}
           animate={inView ? { scaleX: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+          transition={{ duration: 0.9, ease: EASE_OUT_EXPO, delay: 0.5 }}
         >
           <span className="ornament-glyph" aria-hidden />
         </motion.div>

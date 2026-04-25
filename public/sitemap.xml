@@ -11,6 +11,11 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://melany-portfolio.vercel.app/" />
 
     <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/og-image.webp</image:loc>
+      <image:title>Melany Santiesteban — MS Interior Design</image:title>
+      <image:caption>Tarjeta de presentación: diseñadora de interiores en Ciudad de Panamá especializada en visualización 3D</image:caption>
+    </image:image>
+    <image:image>
       <image:loc>https://melany-portfolio.vercel.app/perfil.webp</image:loc>
       <image:title>Melany Santiesteban — Diseñadora de Interiores</image:title>
       <image:caption>Retrato profesional de Melany Santiesteban, diseñadora de interiores en Ciudad de Panamá</image:caption>

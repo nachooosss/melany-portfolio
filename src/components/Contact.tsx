@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m as motion } from 'framer-motion'
 import {
   Mail,
   Phone,
@@ -13,6 +13,7 @@ import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
 import Section from './Section'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 export default function Contact() {
   return (
@@ -33,7 +34,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={revealViewport}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
           className="mb-16 flex flex-col items-center md:items-start text-center md:text-left"
         >
           <p className="text-base md:text-lg text-muted max-w-prose mb-6">

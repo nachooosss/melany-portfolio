@@ -43,7 +43,6 @@ export default function SkeletonImage({
           src={src}
           alt={alt}
           loading={eager ? 'eager' : 'lazy'}
-          fetchPriority={fetchPriority ?? (eager ? 'high' : 'low')}
           decoding={eager ? 'sync' : 'async'}
           onLoad={() => setLoaded(true)}
           onError={() => setErrored(true)}
@@ -51,6 +50,8 @@ export default function SkeletonImage({
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out ${
             loaded ? 'opacity-100' : 'opacity-0'
           } ${imgClassName}`}
+          // React 18 requires lowercase `fetchpriority` — pasarlo via spread bypasea el check
+          {...{ fetchpriority: fetchPriority ?? (eager ? 'high' : 'low') }}
         />
       )}
     </div>

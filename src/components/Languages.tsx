@@ -1,9 +1,10 @@
-import { motion } from 'framer-motion'
+import { m as motion } from 'framer-motion'
 import { Languages as LanguagesIcon } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
 import Section from './Section'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 export default function Languages() {
   return (
@@ -35,7 +36,7 @@ export default function Languages() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.6, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.6, delay: 0.1 * i, ease: EASE_OUT_EXPO }}
                   style={{ transformOrigin: 'left' }}
                   className={`h-1.5 flex-1 ${i < lang.score ? 'bg-accent' : 'bg-line'}`}
                 />

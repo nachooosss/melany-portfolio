@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m as motion } from 'framer-motion'
 import {
   AutoCADIcon,
   SketchUpIcon,
@@ -6,6 +6,7 @@ import {
   TwinmotionIcon,
   PhotoshopIcon,
 } from './TechIcons'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 type Tool = {
   name: string
@@ -47,7 +48,7 @@ export default function ToolsStrip() {
                 transition={{
                   delay: i * 0.09,
                   duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: EASE_OUT_EXPO,
                 }}
                 whileHover={{ y: -6 }}
                 className="group flex flex-col items-center gap-3 w-28 md:w-32 cursor-default"

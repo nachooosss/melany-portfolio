@@ -1,5 +1,5 @@
 import {
-  motion,
+  m as motion,
   useMotionTemplate,
   useScroll,
   useTransform,
@@ -10,6 +10,7 @@ import { cv } from '../data/cv'
 import DownloadButton from './DownloadButton'
 import Logo from './Logo'
 import SkeletonImage from './SkeletonImage'
+import { EASE_OUT_EXPO, EASE_IN_OUT_SINE } from '../constants/animation'
 
 const charVariants = {
   hidden: { opacity: 0, y: 40, filter: 'blur(10px)' },
@@ -20,7 +21,7 @@ const charVariants = {
     transition: {
       delay: 0.2 + i * 0.03,
       duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
+      ease: EASE_OUT_EXPO,
     },
   }),
 }
@@ -145,7 +146,7 @@ export default function Hero() {
                   transition={{
                     delay: 1.0 + i * 0.015,
                     duration: 0.35,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: EASE_OUT_EXPO,
                   }}
                   className="inline-block"
                 >
@@ -165,7 +166,7 @@ export default function Hero() {
                   transition={{
                     delay: 1.6 + i * 0.011,
                     duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: EASE_OUT_EXPO,
                   }}
                   className="inline-block"
                 >
@@ -178,7 +179,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 1.15, duration: 0.7, ease: EASE_OUT_EXPO }}
             className="mt-7 inline-flex items-center gap-3 border border-line bg-surface/70 px-5 py-2.5 text-sm text-muted"
             style={{
               boxShadow: '0 8px 24px -12px rgba(28,25,23,0.18)',
@@ -191,7 +192,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 1.3, duration: 0.7, ease: EASE_OUT_EXPO }}
             className="mt-6 flex items-center gap-2 text-base text-muted"
           >
             <MapPin size={14} strokeWidth={1.5} />
@@ -201,7 +202,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.45, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 1.45, duration: 0.7, ease: EASE_OUT_EXPO }}
             className="mt-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-start"
           >
             <DownloadButton className="justify-center sm:justify-start" />
@@ -223,7 +224,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.3, duration: 1.2, ease: EASE_OUT_EXPO }}
             style={{ y: photoY }}
             className="relative w-[220px] sm:w-[260px] lg:w-[380px] max-w-full"
           >
@@ -293,7 +294,7 @@ export default function Hero() {
           transition={{
             duration: 1.8,
             repeat: Infinity,
-            ease: [0.45, 0, 0.55, 1],
+            ease: EASE_IN_OUT_SINE,
           }}
         >
           <ChevronDown size={16} strokeWidth={1.6} />

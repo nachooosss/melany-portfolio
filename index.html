@@ -22,6 +22,10 @@
     <link rel="alternate" hreflang="es-pa" href="https://melany-portfolio.vercel.app/" />
     <link rel="alternate" hreflang="x-default" href="https://melany-portfolio.vercel.app/" />
 
+    <!-- Feeds para indexadores y agregadores -->
+    <link rel="alternate" type="application/rss+xml" title="Melany Santiesteban — RSS Feed" href="/feed.xml" />
+    <link rel="alternate" type="application/feed+json" title="Melany Santiesteban — JSON Feed" href="/feed.json" />
+
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Discord) -->
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content="Melany Santiesteban — MS Interior Design" />
@@ -30,16 +34,18 @@
     <meta property="og:url" content="https://melany-portfolio.vercel.app/" />
     <meta property="og:locale" content="es_PA" />
 
-    <!-- og:image principal: logo de marca (aparece en WhatsApp, FB, LinkedIn, Discord) -->
+    <!-- og:image principal: composición dedicada 1200×630 (WhatsApp, FB, LinkedIn, Discord) -->
+    <meta property="og:image" content="https://melany-portfolio.vercel.app/og-image.webp" />
+    <meta property="og:image:secure_url" content="https://melany-portfolio.vercel.app/og-image.webp" />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Melany Santiesteban — MS Interior Design · Diseñadora de Interiores en Panamá" />
+
+    <!-- og:image secundaria: logo de marca (fallback si la composición no se carga) -->
     <meta property="og:image" content="https://melany-portfolio.vercel.app/logo.webp" />
-    <meta property="og:image:secure_url" content="https://melany-portfolio.vercel.app/logo.webp" />
     <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:alt" content="MS Interior Design — Logo de Melany Santiesteban" />
-
-    <!-- og:image secundaria: foto de perfil (algunas plataformas la mostrarán como gallery) -->
-    <meta property="og:image" content="https://melany-portfolio.vercel.app/perfil.webp" />
-    <meta property="og:image:type" content="image/webp" />
-    <meta property="og:image:alt" content="Melany Santiesteban, diseñadora de interiores en Panamá" />
 
     <meta property="profile:first_name" content="Melany" />
     <meta property="profile:last_name" content="Santiesteban" />
@@ -51,8 +57,8 @@
     <meta name="twitter:creator" content="@ms.desiggns" />
     <meta name="twitter:title" content="Melany Santiesteban | Diseñadora de Interiores · Panamá" />
     <meta name="twitter:description" content="Visualización 3D fotorrealista y planimetría técnica. Portafolio y CV." />
-    <meta name="twitter:image" content="https://melany-portfolio.vercel.app/logo.webp" />
-    <meta name="twitter:image:alt" content="MS Interior Design — Logo de Melany Santiesteban" />
+    <meta name="twitter:image" content="https://melany-portfolio.vercel.app/og-image.webp" />
+    <meta name="twitter:image:alt" content="Melany Santiesteban — Diseñadora de Interiores en Panamá" />
 
     <!-- Geo (ayuda a Google a posicionarte localmente) -->
     <meta name="geo.region" content="PA" />
@@ -74,7 +80,10 @@
           "jobTitle": "Diseñadora de Interiores",
           "description": "Diseñadora de interiores en Panamá especializada en visualización 3D fotorrealista y planimetría técnica para proyectos residenciales, comerciales y corporativos.",
           "url": "https://melany-portfolio.vercel.app/",
-          "image": "https://melany-portfolio.vercel.app/perfil.webp",
+          "image": [
+            "https://melany-portfolio.vercel.app/og-image.webp",
+            "https://melany-portfolio.vercel.app/perfil.webp"
+          ],
           "email": "mailto:msantiestebangs@gmail.com",
           "telephone": "+507-6577-6878",
           "sameAs": [
@@ -194,6 +203,114 @@
           "name": "Melany Santiesteban — Portafolio",
           "inLanguage": "es-PA",
           "publisher": { "@id": "https://melany-portfolio.vercel.app/#person" }
+        },
+        {
+          "@type": "ImageGallery",
+          "@id": "https://melany-portfolio.vercel.app/#gallery",
+          "name": "Renders y visualización 3D — Melany Santiesteban",
+          "description": "Galería de visualizaciones 3D fotorrealistas de espacios residenciales, comerciales y corporativos.",
+          "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+          "image": [
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/1.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/1.webp",
+              "name": "Restaurante contemporáneo",
+              "description": "Render 3D de área de restaurante con mobiliario en madera y arte mural natural",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/2.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/2.webp",
+              "name": "Cocina abierta moderna",
+              "description": "Cocina abierta con acabados en madera y superficies claras, iluminación indirecta",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/3.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/3.webp",
+              "name": "Gimnasio minimalista",
+              "description": "Gimnasio interior con iluminación ambiental y revestimientos texturizados",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/4.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/4.webp",
+              "name": "Zona de entrenamiento",
+              "description": "Zona de entrenamiento con espejos de gran formato y acabados cálidos",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/5.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/5.webp",
+              "name": "Área de maquillaje profesional",
+              "description": "Área de maquillaje con iluminación perimetral uniforme y organización eficiente",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/6.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/6.webp",
+              "name": "Lounge con vista urbana",
+              "description": "Espacio lounge contemporáneo con vista a la ciudad y elementos naturales",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/7.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/7.webp",
+              "name": "Dormitorio contemporáneo",
+              "description": "Dormitorio minimalista con elementos decorativos gráficos e iluminación cálida",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/8.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/8.webp",
+              "name": "Detalle de mobiliario auxiliar",
+              "description": "Detalle de mobiliario auxiliar con iluminación tenue y simplicidad formal",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/9.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/9.webp",
+              "name": "Coffee Shop orgánico",
+              "description": "Coffee Shop con diseño orgánico, formas curvas y acentos naturales",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/10.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/10.webp",
+              "name": "Dormitorio principal",
+              "description": "Dormitorio principal con materiales naturales e iluminación ambiental",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            },
+            {
+              "@type": "ImageObject",
+              "contentUrl": "https://melany-portfolio.vercel.app/renders/11.webp",
+              "url": "https://melany-portfolio.vercel.app/renders/11.webp",
+              "name": "Dormitorio contemporáneo geométrico",
+              "description": "Dormitorio con materiales naturales y elementos decorativos geométricos",
+              "creator": { "@id": "https://melany-portfolio.vercel.app/#person" },
+              "encodingFormat": "image/webp"
+            }
+          ]
         }
       ]
     }
@@ -202,6 +319,9 @@
     <!-- Preload assets críticos above-the-fold -->
     <link rel="preload" as="image" href="/perfil.webp" fetchpriority="high" />
     <link rel="preload" as="image" href="/renders/1.webp" />
+
+    <!-- Prefetch del CV en idle time → click instantáneo cuando lo descarguen -->
+    <link rel="prefetch" href="/docs/Melany-Santiesteban-CV.pdf" as="document" />
 
     <!-- DNS prefetch para CDN de fonts -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />

@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project } from '../data/cv'
 import { useSwipe } from '../hooks/useSwipe'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 type Props = {
   open: boolean
@@ -121,7 +122,7 @@ export default function Lightbox({
                 initial={{ opacity: 0, scale: 0.94 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
                 className="relative max-w-full max-h-[72vh] md:max-h-[80vh] object-contain shadow-2xl select-none"
                 draggable={false}
               />

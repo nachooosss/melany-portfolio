@@ -6,6 +6,7 @@ import SectionHeading from './SectionHeading'
 import Lightbox from './Lightbox'
 import SkeletonImage from './SkeletonImage'
 import { useSwipe } from '../hooks/useSwipe'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 export default function ProjectsCarousel() {
   const items = cv.projects.items
@@ -105,7 +106,7 @@ export default function ProjectsCarousel() {
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 0.35, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.1, ease: EASE_OUT_EXPO }}
             className="absolute inset-0"
             style={{
               backgroundImage: `url(${active.src})`,
@@ -178,7 +179,7 @@ export default function ProjectsCarousel() {
                     exit="exit"
                     transition={{
                       duration: 0.5,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: EASE_OUT_EXPO,
                       filter: { duration: 0.35 },
                     }}
                     onClick={() => setLightboxOpen(true)}
@@ -287,7 +288,7 @@ export default function ProjectsCarousel() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
                   className="max-w-sm mx-auto lg:mx-0"
                 >
                   <h3 className="font-display text-xl md:text-2xl text-ink mb-3 leading-snug">

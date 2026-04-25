@@ -1,5 +1,5 @@
 import {
-  motion,
+  m as motion,
   useMotionValueEvent,
   useScroll,
 } from 'framer-motion'
@@ -19,7 +19,8 @@ import {
 } from 'lucide-react'
 import { createPortal } from 'react-dom'
 import { cv } from '../data/cv'
-import cvPdfUrl from '../docs/Melany Santiesteban 2026-ES.pdf?url'
+const cvPdfUrl = '/docs/Melany-Santiesteban-CV.pdf'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 type Item = {
   key: string
@@ -221,7 +222,7 @@ export default function FloatingContacts() {
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 40 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: EASE_OUT_EXPO }}
         className="hidden md:flex fixed right-6 bottom-10 z-40 flex-col items-end gap-3"
       >
         <ul className="flex flex-col gap-3">
@@ -233,7 +234,7 @@ export default function FloatingContacts() {
               transition={{
                 duration: 0.5,
                 delay: 0.07 * i,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE_OUT_EXPO,
               }}
             >
               <a
@@ -301,7 +302,7 @@ export default function FloatingContacts() {
         key="floating-fab-mobile"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
         className="md:hidden fixed right-5 bottom-6 z-40"
       >
         <motion.button

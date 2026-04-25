@@ -1,5 +1,7 @@
 import { Download } from 'lucide-react'
-import cvPdfUrl from '../docs/Melany Santiesteban 2026-ES.pdf?url'
+
+// PDF servido directamente desde /public para URL estable + prefetch
+const cvPdfUrl = '/docs/Melany-Santiesteban-CV.pdf'
 
 type Props = {
   variant?: 'solid' | 'ghost'

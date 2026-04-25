@@ -32,7 +32,9 @@ export default function Section({
 }: Props) {
   const paddingClass = padding === 'large' ? 'py-24 md:py-40' : 'py-24 md:py-32'
   const borderClass = bordered ? 'border-t border-line' : ''
-  const sectionClasses = `section-gutter ${paddingClass} ${borderClass} ${className}`.trim()
+  // `relative` para que framer-motion useScroll pueda medir offsets correctamente
+  const sectionClasses =
+    `relative section-gutter ${paddingClass} ${borderClass} ${className}`.trim()
 
   const inner = contained ? <div className="max-content">{children}</div> : children
 

@@ -2,7 +2,8 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-
 import { useState } from 'react'
 import { Download } from 'lucide-react'
 import Logo from './Logo'
-import cvPdfUrl from '../docs/Melany Santiesteban 2026-ES.pdf?url'
+const cvPdfUrl = '/docs/Melany-Santiesteban-CV.pdf'
+import { EASE_OUT_EXPO } from '../constants/animation'
 
 const links = [
   { label: 'Sobre mí', href: '#about' },
@@ -37,7 +38,7 @@ export default function StickyNav() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
           className="hidden md:block fixed top-5 left-4 right-4 md:left-6 md:right-6 z-50"
         >
           <div

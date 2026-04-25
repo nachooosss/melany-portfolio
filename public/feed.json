@@ -1,0 +1,123 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Melany Santiesteban — MS Interior Design",
+  "home_page_url": "https://melany-portfolio.vercel.app/",
+  "feed_url": "https://melany-portfolio.vercel.app/feed.json",
+  "description": "Renders, visualización 3D y proyectos de diseño de interiores de Melany Santiesteban en Ciudad de Panamá.",
+  "language": "es-PA",
+  "icon": "https://melany-portfolio.vercel.app/logo.webp",
+  "favicon": "https://melany-portfolio.vercel.app/favicon.svg",
+  "authors": [
+    {
+      "name": "Melany Santiesteban",
+      "url": "https://melany-portfolio.vercel.app/",
+      "avatar": "https://melany-portfolio.vercel.app/perfil.webp"
+    }
+  ],
+  "items": [
+    {
+      "id": "render-1",
+      "title": "Restaurante contemporáneo",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/1.webp",
+      "summary": "Render 3D de área de restaurante con mobiliario en madera y arte mural natural.",
+      "tags": ["Comercial", "Restaurante", "Visualización 3D"]
+    },
+    {
+      "id": "render-2",
+      "title": "Cocina abierta moderna",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/2.webp",
+      "summary": "Cocina abierta con acabados en madera y superficies claras, iluminación indirecta.",
+      "tags": ["Residencial", "Cocina"]
+    },
+    {
+      "id": "render-3",
+      "title": "Gimnasio minimalista",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/3.webp",
+      "summary": "Gimnasio interior con iluminación ambiental y revestimientos texturizados.",
+      "tags": ["Comercial", "Gimnasio"]
+    },
+    {
+      "id": "render-4",
+      "title": "Zona de entrenamiento",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/4.webp",
+      "summary": "Zona de entrenamiento con espejos de gran formato y acabados cálidos.",
+      "tags": ["Comercial"]
+    },
+    {
+      "id": "render-5",
+      "title": "Área de maquillaje profesional",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/5.webp",
+      "summary": "Área de maquillaje con iluminación perimetral uniforme.",
+      "tags": ["Comercial", "Retail"]
+    },
+    {
+      "id": "render-6",
+      "title": "Lounge con vista urbana",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/6.webp",
+      "summary": "Espacio lounge contemporáneo con vista a la ciudad y elementos naturales.",
+      "tags": ["Residencial"]
+    },
+    {
+      "id": "render-7",
+      "title": "Dormitorio contemporáneo",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/7.webp",
+      "summary": "Dormitorio minimalista con elementos decorativos gráficos e iluminación cálida.",
+      "tags": ["Residencial", "Dormitorio"]
+    },
+    {
+      "id": "render-8",
+      "title": "Detalle de mobiliario auxiliar",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/8.webp",
+      "summary": "Detalle de mobiliario auxiliar con iluminación tenue y simplicidad formal.",
+      "tags": ["Residencial", "Detalle"]
+    },
+    {
+      "id": "render-9",
+      "title": "Coffee Shop orgánico",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/9.webp",
+      "summary": "Coffee Shop con diseño orgánico, formas curvas y acentos naturales.",
+      "tags": ["Comercial", "Coffee Shop"]
+    },
+    {
+      "id": "render-10",
+      "title": "Dormitorio principal",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/10.webp",
+      "summary": "Dormitorio principal con materiales naturales e iluminación ambiental.",
+      "tags": ["Residencial", "Dormitorio"]
+    },
+    {
+      "id": "render-11",
+      "title": "Dormitorio contemporáneo geométrico",
+      "url": "https://melany-portfolio.vercel.app/#projects",
+      "image": "https://melany-portfolio.vercel.app/renders/11.webp",
+      "summary": "Dormitorio con materiales naturales y elementos decorativos geométricos.",
+      "tags": ["Residencial", "Dormitorio"]
+    },
+    {
+      "id": "project-residencial",
+      "title": "Proyecto Residencial — Japandi minimalista (12.5 m²)",
+      "url": "https://melany-portfolio.vercel.app/#experience",
+      "date_published": "2025-12-28T00:00:00Z",
+      "summary": "Rediseño completo de habitación de 12.5 m², transformando un espacio neutro en un ambiente con identidad propia mediante estilo Japandi.",
+      "tags": ["Residencial", "Japandi", "Minimalista"]
+    },
+    {
+      "id": "project-salvia",
+      "title": "Salvia Ecologic Makeup — Diseño biofílico (180 m²)",
+      "url": "https://melany-portfolio.vercel.app/#experience",
+      "date_published": "2026-03-31T00:00:00Z",
+      "summary": "Diseño integral de 180 m² para tienda de maquillaje ecológico con concepto biofílico, materiales reciclados y vegetación interior.",
+      "tags": ["Comercial", "Biofílico", "Sostenible"]
+    }
+  ]
+}

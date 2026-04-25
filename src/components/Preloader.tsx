@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import Logo from './Logo'
+import { EASE_OUT_EXPO, EASE_OVERSHOOT } from '../constants/animation'
 
 const MIN_SHOW_MS = 900
 const MAX_SHOW_MS = 2000
@@ -54,7 +55,7 @@ export default function Preloader() {
           key="preloader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, y: '-100%' }}
-          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.9, ease: EASE_OVERSHOOT }}
           className="fixed inset-0 z-[200] flex items-center justify-center preloader-bg overflow-hidden"
           aria-hidden
         >
@@ -87,7 +88,7 @@ export default function Preloader() {
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
             >
               <Logo height={120} />
             </motion.div>
@@ -96,7 +97,7 @@ export default function Preloader() {
               className="h-px bg-accent origin-center"
               initial={{ width: 0 }}
               animate={{ width: '160px' }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1, delay: 0.2, ease: EASE_OUT_EXPO }}
             />
 
             {/* Bending bar spinner — the "palito doblándose" */}
