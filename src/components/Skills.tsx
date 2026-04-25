@@ -3,11 +3,45 @@ import { Palette } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
+import {
+  AutoCADIcon,
+  SketchUpIcon,
+  D5Icon,
+  TwinmotionIcon,
+  PhotoshopIcon,
+} from './TechIcons'
+
+const SOFTWARE_ICONS: Record<
+  string,
+  (props: { size?: number; strokeWidth?: number; className?: string }) => JSX.Element
+> = {
+  AutoCAD: AutoCADIcon,
+  SketchUp: SketchUpIcon,
+  'D5 Render': D5Icon,
+  Twinmotion: TwinmotionIcon,
+  Photoshop: PhotoshopIcon,
+}
 
 function Pill({ label }: { label: string }) {
   return (
     <li className="inline-flex items-center border border-line px-4 py-2 text-sm text-ink/90 hover:border-accent hover:text-ink transition-colors duration-300">
       {label}
+    </li>
+  )
+}
+
+function SoftwarePill({ label }: { label: string }) {
+  const Icon = SOFTWARE_ICONS[label]
+  return (
+    <li className="group inline-flex items-center gap-2.5 border border-line px-4 py-2.5 text-sm text-ink/90 hover:border-accent hover:text-ink transition-colors duration-300">
+      {Icon && (
+        <Icon
+          size={18}
+          strokeWidth={5}
+          className="text-ink group-hover:text-accent transition-colors"
+        />
+      )}
+      <span>{label}</span>
     </li>
   )
 }
@@ -36,9 +70,9 @@ export default function Skills() {
         >
           <motion.div variants={fadeUp} className="lg:col-span-6">
             <h3 className="font-display text-xl mb-6 text-muted">Software</h3>
-            <ul className="flex flex-wrap gap-2">
+            <ul className="flex flex-wrap gap-2.5">
               {cv.skills.software.map((s) => (
-                <Pill key={s} label={s} />
+                <SoftwarePill key={s} label={s} />
               ))}
             </ul>
 

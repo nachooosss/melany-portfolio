@@ -17,6 +17,9 @@ html {
 
 html, body {
   background: transparent;
+  /* Prevenir scroll horizontal causado por elementos 3D con offsets negativos */
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -26,6 +29,57 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
+  /* Cursor por defecto en todo el sitio (no text-cursor sobre texto) */
+  cursor: default;
+
+  /* Bloquear selección de texto en toda la página */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Permitir selección solo en inputs/textareas (si los hubiera en el futuro) */
+input,
+textarea,
+[contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+/* Cursor pointer explícito en interactivos */
+a,
+button,
+[role='button'],
+[type='submit'],
+[type='button'] {
+  cursor: pointer;
+}
+
+a:disabled,
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Imágenes nunca arrastrables */
+img,
+svg {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+/* Outline accesible para keyboard nav */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 1px;
 }
 
 /* Full-page parallax gradient — paper tones that breathe as you scroll. */
@@ -222,15 +276,6 @@ body {
   background: var(--accent);
 }
 
-/* Established mark */
-.est-mark {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
 
 .ghost-number {
   font-family: 'Fraunces', serif;
@@ -399,6 +444,204 @@ body {
   }
   body {
     cursor: auto !important;
+  }
+}
+
+/* === Moodboard carousel (CSS-only, DOM-reorder driven) ===
+ *
+ * Patrón fiel al ejemplo:
+ *  - Slots 1 y 2: ambos full-cover, MISMO z-index → DOM order decide pintado
+ *    (slot 2 pinta encima de slot 1).
+ *  - Slots 3 y 4: thumbs visibles abajo a la izquierda.
+ *  - Slot 5: posición "exit" invisible — la imagen activa cae aquí al rotar
+ *    y desaparece instantáneamente (opacity 0).
+ *  - Transition SOLO en left/top/width/height — el resto cambia al instante
+ *    para un efecto snappy.
+ */
+
+.moodboard-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--ink);
+  isolation: isolate;
+}
+
+@media (min-width: 1024px) {
+  .moodboard-carousel {
+    aspect-ratio: auto;
+    height: min(82vh, 880px);
+  }
+}
+
+.moodboard-slider {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  inset: 0;
+}
+
+.moodboard-item {
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition:
+    left 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Slots 1 + 2 — full cover. Mismo z-index, slot 2 pinta encima por DOM order. */
+.moodboard-item:first-child,
+.moodboard-item:nth-child(2) {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: none;
+  filter: none;
+  opacity: 1;
+}
+
+/* Slots 3 + 4 — thumbs visibles abajo */
+.moodboard-item:nth-child(3),
+.moodboard-item:nth-child(4) {
+  width: 88px;
+  height: 88px;
+  top: calc(100% - 110px);
+  z-index: 4;
+  border: 1.5px solid rgba(245, 241, 236, 0.9);
+  border-radius: 2px;
+  filter: grayscale(50%) brightness(0.95);
+  box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.55);
+}
+
+.moodboard-item:nth-child(3) {
+  left: 18px;
+}
+.moodboard-item:nth-child(4) {
+  left: 122px;
+}
+
+/* Slot 5 — exit invisible. Aquí cae la imagen activa al rotar. */
+.moodboard-item:nth-child(5) {
+  width: 88px;
+  height: 88px;
+  top: calc(100% - 110px);
+  left: 226px;
+  opacity: 0;
+  z-index: 4;
+}
+
+/* Cualquier slot > 5 también oculto */
+.moodboard-item:nth-child(n + 6) {
+  opacity: 0;
+  z-index: 0;
+}
+
+@media (max-width: 480px) {
+  .moodboard-item:nth-child(3),
+  .moodboard-item:nth-child(4),
+  .moodboard-item:nth-child(5) {
+    width: 60px;
+    height: 60px;
+    top: calc(100% - 78px);
+  }
+  .moodboard-item:nth-child(3) {
+    left: 14px;
+  }
+  .moodboard-item:nth-child(4) {
+    left: 84px;
+  }
+  .moodboard-item:nth-child(5) {
+    left: 154px;
+  }
+}
+
+.moodboard-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(28, 25, 23, 0.55) 0%,
+    rgba(28, 25, 23, 0.1) 30%,
+    rgba(28, 25, 23, 0.1) 55%,
+    rgba(28, 25, 23, 0.75) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.75rem 1.75rem 7rem;
+  color: var(--bg);
+}
+
+.moodboard-overlay > * {
+  pointer-events: auto;
+}
+
+.moodboard-zoom {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+  background: rgba(245, 241, 236, 0.95);
+  border: 1px solid rgba(28, 25, 23, 0.1);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.moodboard-zoom:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+
+.moodboard-nav {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 5;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.moodboard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(245, 241, 236, 0.95);
+  color: var(--ink);
+  border: 1px solid rgba(28, 25, 23, 0.1);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.moodboard-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moodboard-item {
+    transition: none !important;
   }
 }
 

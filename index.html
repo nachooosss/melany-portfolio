@@ -2,31 +2,153 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Melany Santiesteban — Diseñadora de Interiores, Panamá</title>
-    <meta name="description" content="Portafolio y CV de Melany Santiesteban, diseñadora de interiores en Panamá especializada en visualización 3D." />
-    <meta property="og:title" content="Melany Santiesteban — Diseñadora de Interiores" />
-    <meta property="og:description" content="Portafolio y CV de Melany Santiesteban, diseñadora de interiores en Panamá especializada en visualización 3D." />
-    <meta property="og:type" content="website" />
+
+    <!-- Favicon + iconos -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#9C6B4F" />
+
+    <!-- Primary SEO -->
+    <title>Melany Santiesteban | Diseñadora de Interiores y Visualización 3D en Panamá</title>
+    <meta name="description" content="Portafolio de Melany Santiesteban, diseñadora de interiores en Panamá. Especialista en visualización 3D fotorrealista, planimetría técnica y diseño de espacios residenciales, comerciales y corporativos. AutoCAD, SketchUp, D5 Render, Twinmotion." />
+    <meta name="keywords" content="Melany Santiesteban, diseñadora de interiores Panamá, diseño de interiores Panamá, visualización 3D Panamá, renderizado 3D, planimetría técnica, AutoCAD Panamá, SketchUp, D5 Render, Twinmotion, Photoshop, diseño residencial, diseño comercial, diseño corporativo, USMA, freelance interiorismo Panamá" />
+    <meta name="author" content="Melany Santiesteban" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- TODO: actualizar con el dominio real cuando esté en producción -->
+    <link rel="canonical" href="https://melany-portfolio.vercel.app/" />
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Melany Santiesteban — MS Interior Design" />
+    <meta property="og:title" content="Melany Santiesteban | Diseñadora de Interiores · Visualización 3D · Panamá" />
+    <meta property="og:description" content="Portafolio de Melany Santiesteban: visualización 3D fotorrealista y planimetría técnica para proyectos residenciales, comerciales y corporativos en Panamá." />
+    <meta property="og:url" content="https://melany-portfolio.vercel.app/" />
     <meta property="og:locale" content="es_PA" />
+    <meta property="og:image" content="https://melany-portfolio.vercel.app/perfil.jpeg" />
+    <meta property="og:image:alt" content="Melany Santiesteban, diseñadora de interiores en Panamá" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="profile:first_name" content="Melany" />
+    <meta property="profile:last_name" content="Santiesteban" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Melany Santiesteban | Diseñadora de Interiores · Panamá" />
+    <meta name="twitter:description" content="Visualización 3D fotorrealista y planimetría técnica. Portafolio y CV." />
+    <meta name="twitter:image" content="https://melany-portfolio.vercel.app/perfil.jpeg" />
+
+    <!-- Geo (ayuda a Google a posicionarte localmente) -->
+    <meta name="geo.region" content="PA" />
+    <meta name="geo.placename" content="Ciudad de Panamá" />
+    <meta name="geo.position" content="8.9824;-79.5199" />
+    <meta name="ICBM" content="8.9824, -79.5199" />
+
+    <!-- JSON-LD: Person + ProfessionalService schema para Rich Results en Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://melany-portfolio.vercel.app/#person",
+          "name": "Melany Santiesteban",
+          "givenName": "Melany",
+          "familyName": "Santiesteban",
+          "jobTitle": "Diseñadora de Interiores",
+          "description": "Diseñadora de interiores en Panamá especializada en visualización 3D fotorrealista y planimetría técnica para proyectos residenciales, comerciales y corporativos.",
+          "url": "https://melany-portfolio.vercel.app/",
+          "image": "https://melany-portfolio.vercel.app/perfil.jpeg",
+          "email": "mailto:msantiestebangs@gmail.com",
+          "telephone": "+507-6577-6878",
+          "sameAs": [
+            "https://www.linkedin.com/in/melany-santiesteban-b9960a402",
+            "https://www.instagram.com/ms.desiggns"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ciudad de Panamá",
+            "addressCountry": "PA"
+          },
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Universidad Católica Santa María La Antigua (USMA)",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "PA"
+            }
+          },
+          "knowsAbout": [
+            "Diseño de Interiores",
+            "Visualización 3D",
+            "Renderizado 3D",
+            "Planimetría técnica",
+            "AutoCAD",
+            "SketchUp",
+            "D5 Render",
+            "Twinmotion",
+            "Adobe Photoshop",
+            "Modelado 3D",
+            "Diseño residencial",
+            "Diseño comercial",
+            "Diseño corporativo"
+          ],
+          "knowsLanguage": ["Español", "Inglés"]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://melany-portfolio.vercel.app/#service",
+          "name": "MS Interior Design",
+          "image": "https://melany-portfolio.vercel.app/perfil.jpeg",
+          "url": "https://melany-portfolio.vercel.app/",
+          "founder": { "@id": "https://melany-portfolio.vercel.app/#person" },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Panamá"
+          },
+          "serviceType": [
+            "Diseño de Interiores",
+            "Visualización 3D Arquitectónica",
+            "Planimetría Técnica",
+            "Modelado 3D",
+            "Renderizado fotorrealista"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ciudad de Panamá",
+            "addressCountry": "PA"
+          },
+          "telephone": "+507-6577-6878",
+          "email": "msantiestebangs@gmail.com"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://melany-portfolio.vercel.app/#website",
+          "url": "https://melany-portfolio.vercel.app/",
+          "name": "Melany Santiesteban — Portafolio",
+          "inLanguage": "es-PA",
+          "publisher": { "@id": "https://melany-portfolio.vercel.app/#person" }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Preload assets críticos above-the-fold -->
+    <link rel="preload" as="image" href="/perfil.jpeg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/renders/1.webp" />
+
+    <!-- DNS prefetch para CDN de fonts -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
-      <defs>
-        <!-- Silhouette filter: forces output RGB to pure black and
-             derives alpha from inverse luminance. Anything brighter
-             than ~80% lightness becomes transparent, rest is rendered
-             as clean black silhouette. -->
-        <filter id="logo-keywhite" color-interpolation-filters="sRGB">
-          <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.5 -0.5 -0.5 0 1.2"/>
-        </filter>
-      </defs>
-    </svg>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

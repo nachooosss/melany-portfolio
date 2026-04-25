@@ -1,14 +1,23 @@
 import { motion } from 'framer-motion'
-import { Ruler, Box, Sparkles, Clapperboard, Brush, type LucideIcon } from 'lucide-react'
+import {
+  AutoCADIcon,
+  SketchUpIcon,
+  D5Icon,
+  TwinmotionIcon,
+  PhotoshopIcon,
+} from './TechIcons'
 
-type Tool = { name: string; Icon: LucideIcon }
+type Tool = {
+  name: string
+  Icon: (props: { size?: number; strokeWidth?: number; className?: string }) => JSX.Element
+}
 
 const tools: Tool[] = [
-  { name: 'AutoCAD', Icon: Ruler },
-  { name: 'SketchUp', Icon: Box },
-  { name: 'D5 Render', Icon: Sparkles },
-  { name: 'Twinmotion', Icon: Clapperboard },
-  { name: 'Photoshop', Icon: Brush },
+  { name: 'AutoCAD', Icon: AutoCADIcon },
+  { name: 'SketchUp', Icon: SketchUpIcon },
+  { name: 'D5 Render', Icon: D5Icon },
+  { name: 'Twinmotion', Icon: TwinmotionIcon },
+  { name: 'Photoshop', Icon: PhotoshopIcon },
 ]
 
 export default function ToolsStrip() {
@@ -44,7 +53,7 @@ export default function ToolsStrip() {
                 className="group flex flex-col items-center gap-3 w-28 md:w-32 cursor-default"
               >
                 <motion.div
-                  className="relative flex items-center justify-center h-16 w-16 md:h-20 md:w-20 border border-line bg-bg/60 backdrop-blur-sm"
+                  className="relative flex items-center justify-center h-16 w-16 md:h-20 md:w-20 border border-line bg-bg/60 backdrop-blur-sm text-ink group-hover:text-accent transition-colors"
                   animate={{ y: [0, -4, 0] }}
                   transition={{
                     duration: 3.2,
@@ -53,11 +62,7 @@ export default function ToolsStrip() {
                     ease: 'easeInOut',
                   }}
                 >
-                  <Icon
-                    size={28}
-                    strokeWidth={1.4}
-                    className="text-ink transition-colors group-hover:text-accent"
-                  />
+                  <Icon size={32} strokeWidth={3.5} />
                   <motion.span
                     aria-hidden
                     className="absolute -top-1 -right-1 block h-2 w-2 rounded-full bg-accent"

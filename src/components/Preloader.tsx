@@ -89,7 +89,7 @@ export default function Preloader() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Logo height={110} />
+              <Logo height={120} />
             </motion.div>
 
             <motion.div
@@ -99,20 +99,11 @@ export default function Preloader() {
               transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             />
 
-            <motion.p
-              className="est-mark"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-            >
-              Est. MMXXVI
-            </motion.p>
-
             {/* Bending bar spinner — the "palito doblándose" */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.4 }}
               className="relative h-[2px] w-28 bg-line overflow-hidden"
             >
               <motion.span
@@ -141,7 +132,7 @@ export default function Preloader() {
           </div>
 
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-muted">
-            Panamá · MMXXVI
+            Panamá · 2026
           </div>
         </motion.div>
       )}

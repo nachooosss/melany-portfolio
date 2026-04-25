@@ -6,7 +6,7 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion'
-import { ArrowRight, MapPin } from 'lucide-react'
+import { ArrowRight, ChevronDown, MapPin } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { cv } from '../data/cv'
 import DownloadButton from './DownloadButton'
@@ -100,11 +100,9 @@ export default function Hero() {
         Panamá · 2026 · Interior Design
       </span>
 
-      <nav className="relative z-10 max-content w-full flex items-center justify-between">
+      <nav className="relative z-10 max-content w-full flex items-center justify-center md:justify-between">
         <div className="flex items-center gap-5">
-          <Logo height={64} />
-          <span className="hidden sm:inline-block h-5 w-px bg-line" />
-          <span className="hidden sm:inline est-mark">Est. MMXXVI</span>
+          <Logo height={96} />
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm text-muted">
           <a href="#about" className="link-underline hover:text-ink transition-colors">
@@ -135,7 +133,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="section-number mb-6"
+            className="section-number mb-6 text-center lg:text-left"
           >
             00 — Portafolio &amp; CV
           </motion.p>
@@ -222,10 +220,13 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.45, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10 flex flex-col sm:flex-row gap-4"
+            className="mt-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-start"
           >
-            <DownloadButton />
-            <a href="#projects" className="btn-outline group">
+            <DownloadButton className="justify-center sm:justify-start" />
+            <a
+              href="#projects"
+              className="btn-outline group justify-center sm:justify-start"
+            >
               Ver proyectos
               <ArrowRight
                 size={16}
@@ -236,7 +237,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="lg:col-span-5 order-1 lg:order-2 flex lg:justify-end">
+        <div className="lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -303,23 +304,32 @@ export default function Hero() {
                 style={{ transform: 'translateZ(12px)' }}
               />
             </motion.div>
-
-            <span className="hidden lg:block absolute -left-10 top-1/2 -translate-y-1/2 vertical-rl">
-              Retrato · MMXXVI
-            </span>
           </motion.div>
         </div>
       </motion.div>
 
-      <motion.div
+      <motion.a
+        href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 0.8 }}
-        className="relative z-10 max-content w-full mt-12 flex items-center gap-3 text-xs uppercase tracking-widest text-muted"
+        aria-label="Scroll para explorar el portafolio"
+        className="group relative z-10 max-content w-full mt-12 flex items-center gap-4 text-xs uppercase tracking-widest text-muted hover:text-ink transition-colors"
       >
-        <span className="h-px w-12 bg-muted" />
-        Scroll para explorar
-      </motion.div>
+        <span className="h-px w-12 bg-muted group-hover:bg-accent transition-colors" />
+        <span>Scroll para explorar</span>
+        <motion.span
+          className="inline-flex items-center justify-center h-9 w-9 border border-line group-hover:border-accent group-hover:text-accent transition-colors"
+          animate={{ y: [0, 6, 0] }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: [0.45, 0, 0.55, 1],
+          }}
+        >
+          <ChevronDown size={16} strokeWidth={1.6} />
+        </motion.span>
+      </motion.a>
     </header>
   )
 }

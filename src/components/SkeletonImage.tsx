@@ -43,7 +43,8 @@ export default function SkeletonImage({
           src={src}
           alt={alt}
           loading={eager ? 'eager' : 'lazy'}
-          fetchPriority={fetchPriority}
+          fetchPriority={fetchPriority ?? (eager ? 'high' : 'low')}
+          decoding={eager ? 'sync' : 'async'}
           onLoad={() => setLoaded(true)}
           onError={() => setErrored(true)}
           draggable={false}

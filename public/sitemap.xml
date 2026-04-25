@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://melany-portfolio.vercel.app/</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/perfil.jpeg</image:loc>
+      <image:title>Melany Santiesteban — Diseñadora de Interiores</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/1.webp</image:loc>
+      <image:caption>Restaurante contemporáneo</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/2.webp</image:loc>
+      <image:caption>Cocina abierta moderna</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/3.webp</image:loc>
+      <image:caption>Gimnasio minimalista</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/4.webp</image:loc>
+      <image:caption>Zona de entrenamiento</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/5.webp</image:loc>
+      <image:caption>Área de maquillaje profesional</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/6.webp</image:loc>
+      <image:caption>Lounge con vista urbana</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/7.webp</image:loc>
+      <image:caption>Dormitorio contemporáneo</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/8.webp</image:loc>
+      <image:caption>Detalle de mobiliario auxiliar</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/9.webp</image:loc>
+      <image:caption>Coffee Shop orgánico</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/10.webp</image:loc>
+      <image:caption>Dormitorio principal</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/renders/11.webp</image:loc>
+      <image:caption>Dormitorio contemporáneo geométrico</image:caption>
+    </image:image>
+  </url>
+</urlset>

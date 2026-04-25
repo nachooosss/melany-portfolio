@@ -1,9 +1,8 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { useState } from 'react'
 import { Download } from 'lucide-react'
-import { pdf } from '@react-pdf/renderer'
-import { CVDocument } from './PrintableCV'
 import Logo from './Logo'
+import cvPdfUrl from '../docs/Melany Santiesteban 2026-ES.pdf?url'
 
 const links = [
   { label: 'Sobre mí', href: '#about' },
@@ -16,7 +15,6 @@ const links = [
 export default function StickyNav() {
   const { scrollY } = useScroll()
   const [visible, setVisible] = useState(false)
-  const [pdfLoading, setPdfLoading] = useState(false)
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const prev = scrollY.getPrevious() ?? 0
@@ -31,24 +29,6 @@ export default function StickyNav() {
     }
   })
 
-  const downloadPdf = async () => {
-    if (pdfLoading) return
-    setPdfLoading(true)
-    try {
-      const blob = await pdf(<CVDocument />).toBlob()
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = 'Melany-Santiesteban-CV.pdf'
-      document.body.appendChild(link)
-      link.click()
-      link.remove()
-      setTimeout(() => URL.revokeObjectURL(url), 2000)
-    } finally {
-      setPdfLoading(false)
-    }
-  }
-
   return (
     <AnimatePresence>
       {visible && (
@@ -58,7 +38,7 @@ export default function StickyNav() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed top-5 left-4 right-4 md:left-6 md:right-6 z-50"
+          className="hidden md:block fixed top-5 left-4 right-4 md:left-6 md:right-6 z-50"
         >
           <div
             className="relative max-content"
@@ -110,13 +90,7 @@ export default function StickyNav() {
                 aria-label="Volver al inicio"
                 className="flex items-center gap-4 text-ink group"
               >
-                <Logo height={44} />
-                <span className="hidden lg:inline-block h-6 w-px bg-accent/60" />
-                <span
-                  className="hidden lg:inline font-display italic text-[11px] tracking-[0.3em] uppercase text-muted group-hover:text-accent transition-colors"
-                >
-                  Est. MMXXVI
-                </span>
+                <Logo height={64} />
               </a>
 
               <ul className="hidden md:flex items-center gap-8 text-[13px] text-ink/80 font-medium">
@@ -136,11 +110,11 @@ export default function StickyNav() {
                 ))}
               </ul>
 
-              <button
-                type="button"
-                onClick={downloadPdf}
-                disabled={pdfLoading}
-                className="group relative inline-flex items-center gap-2 px-5 py-3 text-[11px] uppercase tracking-[0.2em] font-medium text-bg transition-colors disabled:opacity-50 overflow-hidden"
+              <a
+                href={cvPdfUrl}
+                download="Melany-Santiesteban-CV.pdf"
+                aria-label="Descargar CV en PDF"
+                className="group relative inline-flex items-center gap-2 px-5 py-3 text-[11px] uppercase tracking-[0.2em] font-medium text-bg transition-colors overflow-hidden"
                 style={{
                   background:
                     'linear-gradient(135deg, rgba(156,107,79,1) 0%, rgba(128,82,57,1) 100%)',
@@ -159,9 +133,9 @@ export default function StickyNav() {
                   className="relative transition-all group-hover:translate-y-0.5 group-hover:text-ink"
                 />
                 <span className="relative group-hover:text-ink transition-colors">
-                  {pdfLoading ? 'Generando…' : 'Descargar CV'}
+                  Descargar CV
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </motion.nav>

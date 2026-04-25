@@ -52,10 +52,11 @@ export default function SectionHeading({
   return (
     <div ref={ref} className="relative mb-16">
       <motion.div
-        className="absolute inset-0 flex items-start pointer-events-none select-none"
+        className={`absolute inset-0 flex items-start pointer-events-none select-none justify-center ${
+          align === 'right' ? 'md:justify-end' : 'md:justify-start'
+        }`}
         aria-hidden
         style={{
-          justifyContent: align === 'right' ? 'flex-end' : 'flex-start',
           x: ghostX,
           y: ghostY,
         }}
@@ -75,9 +76,9 @@ export default function SectionHeading({
         initial="hidden"
         whileInView="visible"
         viewport={revealViewport}
-        className="relative pt-12"
+        className="relative pt-12 text-center md:text-left"
       >
-        <div className="flex items-center gap-5 mb-5">
+        <div className="flex flex-col md:flex-row items-center md:items-center gap-3 md:gap-5 mb-5 justify-center md:justify-start">
           {Icon && (
             <motion.span
               className="section-icon"
@@ -111,7 +112,7 @@ export default function SectionHeading({
         </div>
 
         <motion.div
-          className="ornament-rule mt-6 max-w-sm origin-left"
+          className="ornament-rule mt-6 max-w-sm mx-auto md:mx-0 origin-center md:origin-left"
           initial={{ scaleX: 0, opacity: 0 }}
           animate={inView ? { scaleX: 1, opacity: 1 } : {}}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}

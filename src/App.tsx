@@ -8,7 +8,6 @@ import Skills from './components/Skills'
 import Certifications from './components/Certifications'
 import Languages from './components/Languages'
 import Contact from './components/Contact'
-import DownloadButton from './components/DownloadButton'
 import ToolsStrip from './components/ToolsStrip'
 import CustomCursor from './components/CustomCursor'
 import StickyNav from './components/StickyNav'
@@ -38,7 +37,6 @@ export default function App() {
         <ToolsStrip />
         <ProjectsCarousel />
         <Experience />
-        <ToolsStrip />
         <Education />
         <Skills />
         <Certifications />
@@ -49,16 +47,13 @@ export default function App() {
             <div className="ornament-rule mb-10">
               <span className="ornament-glyph" aria-hidden />
             </div>
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-6 text-center md:text-left">
               <div className="flex items-center gap-4">
-                <Logo height={44} />
-                <span className="h-4 w-px bg-line" />
-                <span className="est-mark">Est. MMXXVI</span>
+                <Logo height={68} />
               </div>
               <p className="text-sm text-muted">
                 © 2026 {cv.personal.name} · Diseñado y desarrollado con cuidado.
               </p>
-              <DownloadButton variant="ghost" />
             </div>
           </div>
         </footer>

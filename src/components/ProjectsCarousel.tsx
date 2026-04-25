@@ -190,6 +190,30 @@ export default function ProjectsCarousel() {
                 }}
                 className="relative"
               >
+                {/* Capa 3 — frame trasero con patrón diagonal (offset top-left) */}
+                <div
+                  aria-hidden
+                  className="absolute border border-accent/45"
+                  style={{
+                    inset: '-22px 22px 22px -22px',
+                    transform: 'translateZ(-60px)',
+                    background:
+                      'repeating-linear-gradient(45deg, rgba(156,107,79,0.06) 0 2px, transparent 2px 8px)',
+                  }}
+                />
+
+                {/* Capa 2 — relleno tostado (offset bottom-right) */}
+                <div
+                  aria-hidden
+                  className="absolute border border-line"
+                  style={{
+                    inset: '18px -18px -18px 18px',
+                    transform: 'translateZ(-30px)',
+                    background: 'rgba(156, 107, 79, 0.12)',
+                    boxShadow: '0 20px 60px -30px rgba(28,25,23,0.35)',
+                  }}
+                />
+
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.button
                     key={active.src}
@@ -241,6 +265,18 @@ export default function ProjectsCarousel() {
                     </span>
                   </motion.button>
                 </AnimatePresence>
+
+                {/* Corner ticks editoriales (foreground) */}
+                <div
+                  aria-hidden
+                  className="absolute -top-2 -right-2 w-8 h-8 border-t border-r border-accent pointer-events-none"
+                  style={{ transform: 'translateZ(12px)' }}
+                />
+                <div
+                  aria-hidden
+                  className="absolute -bottom-2 -left-2 w-8 h-8 border-b border-l border-accent pointer-events-none"
+                  style={{ transform: 'translateZ(12px)' }}
+                />
               </motion.div>
 
               {/* Floating shadow layer for depth */}
@@ -257,20 +293,34 @@ export default function ProjectsCarousel() {
           </div>
 
           {/* Meta + controls */}
-          <div className="lg:col-span-4 flex flex-col gap-8">
-            <div>
-              <div className="flex items-baseline gap-3 mb-4">
+          <div className="lg:col-span-4 flex flex-col gap-8 items-center text-center lg:items-start lg:text-left">
+            <div className="w-full">
+              <div className="flex items-baseline gap-3 mb-4 justify-center lg:justify-start">
                 <span className="font-display text-5xl md:text-6xl text-accent leading-none">
                   {current}
                 </span>
                 <span className="text-muted font-mono text-sm">/ {total}</span>
               </div>
-              <p className="text-sm text-muted leading-relaxed max-w-sm">
-                {cv.projects.caption}
-              </p>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active.src}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="max-w-sm mx-auto lg:mx-0"
+                >
+                  <h3 className="font-display text-xl md:text-2xl text-ink mb-3 leading-snug">
+                    {active.title}
+                  </h3>
+                  <p className="text-sm text-muted leading-relaxed">
+                    {active.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap justify-center lg:justify-start">
               <button
                 type="button"
                 onClick={prev}
