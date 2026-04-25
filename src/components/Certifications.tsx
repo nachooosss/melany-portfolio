@@ -60,7 +60,7 @@ export default function Certifications() {
               <motion.li
                 key={i}
                 variants={fadeUp}
-                className="flex items-center justify-between gap-4 py-5 border-t border-line first:border-t-0"
+                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 py-5 border-t border-line first:border-t-0"
               >
                 <div className="flex items-center gap-4 min-w-0">
                   {icons.length > 0 && (
@@ -75,14 +75,16 @@ export default function Certifications() {
                       ))}
                     </div>
                   )}
-                  <div className="min-w-0">
-                    <p className="font-display text-xl md:text-2xl truncate">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-display text-lg sm:text-xl md:text-2xl leading-tight break-words">
                       {c.name}
                     </p>
                     <p className="text-sm text-muted mt-1">{c.issuer}</p>
                   </div>
                 </div>
-                <span className="text-sm text-muted font-mono shrink-0">{c.date}</span>
+                <span className="text-sm text-muted font-mono shrink-0 self-start sm:self-auto pl-14 sm:pl-0">
+                  {c.date}
+                </span>
               </motion.li>
             )
           })}

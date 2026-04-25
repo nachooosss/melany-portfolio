@@ -1,5 +1,4 @@
 import {
-  AnimatePresence,
   motion,
   useMotionValueEvent,
   useScroll,
@@ -13,7 +12,10 @@ import {
   ChevronUp,
   Download,
   Plus,
-  X,
+  UserRound,
+  ImageIcon,
+  Briefcase,
+  Send,
 } from 'lucide-react'
 import { createPortal } from 'react-dom'
 import { cv } from '../data/cv'
@@ -29,7 +31,8 @@ type Item = {
   external?: boolean
 }
 
-const items: Item[] = [
+// Desktop: stack vertical con métodos de contacto directos
+const desktopItems: Item[] = [
   {
     key: 'whatsapp',
     label: 'WhatsApp',
@@ -57,6 +60,50 @@ const items: Item[] = [
     href: cv.personal.linkedin.url,
     Icon: Linkedin,
     external: true,
+  },
+  {
+    key: 'cv',
+    label: 'Descargar CV',
+    href: cvPdfUrl,
+    Icon: Download,
+    download: 'Melany-Santiesteban-CV.pdf',
+  },
+]
+
+// Mobile radial: navegación rápida entre secciones + WhatsApp + CV.
+// Para otros canales de contacto, se va a la sección Contacto.
+const mobileItems: Item[] = [
+  {
+    key: 'whatsapp',
+    label: 'WhatsApp',
+    href: cv.personal.whatsapp,
+    Icon: MessageCircle,
+    primary: true,
+    external: true,
+  },
+  {
+    key: 'about',
+    label: 'Sobre mí',
+    href: '#about',
+    Icon: UserRound,
+  },
+  {
+    key: 'projects',
+    label: 'Proyectos',
+    href: '#projects',
+    Icon: ImageIcon,
+  },
+  {
+    key: 'experience',
+    label: 'Experiencia',
+    href: '#experience',
+    Icon: Briefcase,
+  },
+  {
+    key: 'contact',
+    label: 'Contacto',
+    href: '#contact',
+    Icon: Send,
   },
   {
     key: 'cv',
@@ -101,161 +148,67 @@ export default function FloatingContacts() {
 
   if (!visible) return null
 
-  // Distribución circular completa: 5 items distribuidos en 360°
-  // Item 0 arriba (-90°), girando en sentido horario
-  const RADIUS = 110
-  const N = items.length
-  const startAngleDeg = -90 // 12 en punto
-  const stepDeg = 360 / N
+  const N = mobileItems.length
 
   const radialMenu =
     typeof document !== 'undefined'
       ? createPortal(
-          <AnimatePresence>
-            {radialOpen && (
-              <motion.div
-                key="radial-overlay"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                onClick={() => setRadialOpen(false)}
-                className="md:hidden fixed inset-0 z-[60] flex items-center justify-center"
-                style={{
-                  background: 'rgba(28, 25, 23, 0.78)',
-                  backdropFilter: 'blur(14px)',
-                  WebkitBackdropFilter: 'blur(14px)',
-                }}
-                role="dialog"
-                aria-modal="true"
-                aria-label="Menú de contacto"
-              >
-                {/* Anillo decorativo sutil alrededor */}
-                <motion.span
-                  aria-hidden
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute rounded-full border border-accent/30 pointer-events-none"
-                  style={{
-                    width: RADIUS * 2 + 20,
-                    height: RADIUS * 2 + 20,
-                  }}
-                />
-
-                {/* Items en círculo */}
-                {items.map((item, i) => {
-                  const angleRad =
-                    ((startAngleDeg + i * stepDeg) * Math.PI) / 180
-                  const x = Math.cos(angleRad) * RADIUS
-                  const y = Math.sin(angleRad) * RADIUS
+          <div
+            onClick={() => setRadialOpen(false)}
+            className={`md:hidden fixed inset-0 z-[60] flex items-center justify-center transition-opacity duration-400 ${
+              radialOpen
+                ? 'opacity-100 pointer-events-auto'
+                : 'opacity-0 pointer-events-none'
+            }`}
+            style={{
+              background: 'rgba(28, 25, 23, 0.82)',
+              backdropFilter: radialOpen ? 'blur(14px)' : 'none',
+              WebkitBackdropFilter: radialOpen ? 'blur(14px)' : 'none',
+            }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menú de navegación"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className={`menu-radial ${radialOpen ? 'active' : ''}`}
+              style={{ ['--n' as string]: N } as React.CSSProperties}
+            >
+              <ul>
+                {mobileItems.map((item, i) => {
                   const Icon = item.Icon
-
                   return (
-                    <motion.a
+                    <li
                       key={item.key}
-                      href={item.href}
-                      target={item.external ? '_blank' : undefined}
-                      rel={item.external ? 'noreferrer' : undefined}
-                      download={item.download}
-                      aria-label={item.label}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setRadialOpen(false)
-                      }}
-                      initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
-                      animate={{ x, y, scale: 1, opacity: 1 }}
-                      exit={{
-                        x: 0,
-                        y: 0,
-                        scale: 0,
-                        opacity: 0,
-                        transition: {
-                          duration: 0.22,
-                          delay: (N - 1 - i) * 0.025,
-                          ease: [0.4, 0, 1, 0.4],
-                        },
-                      }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 380,
-                        damping: 26,
-                        mass: 0.55,
-                        delay: i * 0.025,
-                      }}
-                      className="absolute flex flex-col items-center gap-2 -translate-x-1/2 -translate-y-1/2 active:scale-95 transition-transform"
+                      className={item.primary ? 'primary' : ''}
+                      style={{ ['--i' as string]: i } as React.CSSProperties}
                     >
-                      <span
-                        className={`relative flex items-center justify-center h-16 w-16 rounded-full ${
-                          item.primary ? 'text-bg' : 'text-ink'
-                        }`}
-                        style={{
-                          background: item.primary ? '#9C6B4F' : '#F5F1EC',
-                          border: item.primary
-                            ? '1px solid rgba(245, 241, 236, 0.3)'
-                            : '1px solid rgba(156, 107, 79, 0.45)',
-                          boxShadow:
-                            '0 16px 32px -8px rgba(0, 0, 0, 0.55), 0 4px 12px -3px rgba(0, 0, 0, 0.35)',
-                        }}
+                      <a
+                        href={item.href}
+                        target={item.external ? '_blank' : undefined}
+                        rel={item.external ? 'noreferrer' : undefined}
+                        download={item.download}
+                        aria-label={item.label}
+                        onClick={() => setRadialOpen(false)}
                       >
                         <Icon size={22} strokeWidth={1.8} />
-                        {item.primary && (
-                          <motion.span
-                            aria-hidden
-                            className="absolute inset-0 rounded-full border border-accent pointer-events-none"
-                            animate={{
-                              scale: [1, 1.4, 1],
-                              opacity: [0.7, 0, 0],
-                            }}
-                            transition={{
-                              duration: 1.8,
-                              repeat: Infinity,
-                              ease: 'easeOut',
-                            }}
-                          />
-                        )}
-                      </span>
-                      <span
-                        className="text-[10px] uppercase tracking-[0.18em] font-medium whitespace-nowrap"
-                        style={{
-                          color: '#F2EBDC',
-                          textShadow: '0 2px 8px rgba(0, 0, 0, 0.6)',
-                        }}
-                      >
-                        {item.label}
-                      </span>
-                    </motion.a>
+                        <span className="menu-radial-label">{item.label}</span>
+                      </a>
+                    </li>
                   )
                 })}
+              </ul>
 
-                {/* Botón central X */}
-                <motion.button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setRadialOpen(false)
-                  }}
-                  aria-label="Cerrar menú"
-                  initial={{ scale: 0, rotate: -90 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  exit={{ scale: 0, rotate: -90 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="relative z-10 flex items-center justify-center h-16 w-16 rounded-full bg-accent text-bg active:scale-95 transition-transform"
-                  style={{
-                    border: '1px solid rgba(245, 241, 236, 0.4)',
-                    boxShadow:
-                      '0 20px 50px -10px rgba(156, 107, 79, 0.7), 0 6px 16px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(245, 241, 236, 0.2)',
-                  }}
-                >
-                  <X size={26} strokeWidth={2} />
-                </motion.button>
-              </motion.div>
-            )}
-          </AnimatePresence>,
+              <button
+                type="button"
+                onClick={() => setRadialOpen(false)}
+                aria-label="Cerrar menú"
+                className="menu-toggle"
+              >
+                <Plus size={28} strokeWidth={2} />
+              </button>
+            </div>
+          </div>,
           document.body,
         )
       : null
@@ -272,7 +225,7 @@ export default function FloatingContacts() {
         className="hidden md:flex fixed right-6 bottom-10 z-40 flex-col items-end gap-3"
       >
         <ul className="flex flex-col gap-3">
-          {items.map(({ key, label, href, Icon, primary, download, external }, i) => (
+          {desktopItems.map(({ key, label, href, Icon, primary, download, external }, i) => (
             <motion.li
               key={key}
               initial={{ opacity: 0, x: 20 }}

@@ -447,6 +447,135 @@ svg {
   }
 }
 
+/* === Radial menu (CSS-only via :is + transform-origin) ===
+ * Patrón: cada <li> está absolutamente posicionado con transform-origin
+ * desplazado al centro virtual del círculo. Al activarse, cada uno rota
+ * `360°/N * i` desde el centro. El <a> interno se contra-rota para que
+ * el contenido (icono + label) quede siempre derecho.
+ */
+
+.menu-radial {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-radial ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-radial li {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+  transition-delay: calc(0.06s * var(--i));
+  /* Cerrado: arranca en el centro sin offset */
+  transform: rotate(-90deg) translateX(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-radial.active li {
+  opacity: 1;
+  pointer-events: auto;
+  /* Abierto: rota a su ángulo y se desplaza 110px hacia afuera */
+  transform: rotate(calc(-90deg + 360deg / var(--n) * var(--i)))
+    translateX(110px);
+}
+
+.menu-radial li a {
+  position: absolute;
+  top: -28px;
+  left: -28px;
+  width: 56px;
+  height: 56px;
+  background: #F5F1EC;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(156, 107, 79, 0.45);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.55),
+    0 4px 12px -3px rgba(0, 0, 0, 0.3);
+  /* Contra-rota para mantener icono+label derechos en pantalla */
+  transform: rotate(calc(90deg - 360deg / var(--n) * var(--i)));
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.25s ease, color 0.25s ease;
+  transition-delay: calc(0.06s * var(--i));
+}
+
+.menu-radial li.primary a {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: rgba(245, 241, 236, 0.35);
+}
+
+.menu-radial li a:active {
+  transform: rotate(calc(90deg - 360deg / var(--n) * var(--i))) scale(0.92);
+}
+
+.menu-radial li.primary a:hover,
+.menu-radial li a:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.menu-radial-label {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #F2EBDC;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.menu-radial .menu-toggle {
+  position: relative;
+  z-index: 10;
+  width: 64px;
+  height: 64px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(245, 241, 236, 0.4);
+  box-shadow: 0 20px 50px -10px rgba(156, 107, 79, 0.7),
+    0 6px 16px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(245, 241, 236, 0.2);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-radial.active .menu-toggle {
+  transform: rotate(135deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-radial li,
+  .menu-radial li a,
+  .menu-radial .menu-toggle {
+    transition: opacity 0.2s ease !important;
+  }
+}
+
 /* === Moodboard carousel (CSS-only, DOM-reorder driven) ===
  *
  * Patrón fiel al ejemplo:
@@ -587,56 +716,76 @@ svg {
   pointer-events: auto;
 }
 
-.moodboard-zoom {
+/* Wrapper que contiene carousel + nav debajo */
+.moodboard-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Hint visual "Ampliar" con lupita en esquina sup. derecha del carrusel */
+.moodboard-zoom-hint {
   position: absolute;
   top: 14px;
   right: 14px;
   z-index: 5;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.85rem;
-  font-size: 10px;
+  gap: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 9px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: var(--ink);
   background: rgba(245, 241, 236, 0.95);
   border: 1px solid rgba(28, 25, 23, 0.1);
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.moodboard-zoom:hover {
-  background: var(--accent);
-  color: var(--bg);
-  transform: translateY(-1px);
+/* El carrusel entero es clickable */
+.moodboard-carousel {
+  cursor: zoom-in;
 }
 
-.moodboard-nav {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  z-index: 5;
+/* Nav prev/next debajo del carrusel */
+.moodboard-nav-below {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
 .moodboard-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   background: rgba(245, 241, 236, 0.95);
   color: var(--ink);
-  border: 1px solid rgba(28, 25, 23, 0.1);
-  transition: background 0.25s ease, transform 0.25s ease;
+  border: 1px solid var(--line);
+  transition: background 0.25s ease, transform 0.25s ease, color 0.25s ease;
 }
 
 .moodboard-btn:hover {
   background: var(--accent);
   color: var(--bg);
+  border-color: var(--accent);
   transform: translateY(-1px);
+}
+
+.moodboard-counter {
+  font-family: 'Inter', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {

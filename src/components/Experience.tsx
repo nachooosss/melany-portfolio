@@ -1,10 +1,4 @@
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from 'framer-motion'
+import { motion } from 'framer-motion'
 import {
   Briefcase,
   Bed,
@@ -191,47 +185,15 @@ function YearBlock({
   align: 'left' | 'right'
   className?: string
 }) {
-  // 3D mouse tilt para todo el stack (mismo patrón que la foto del Hero)
-  const mx = useMotionValue(0)
-  const my = useMotionValue(0)
-  const sMx = useSpring(mx, { stiffness: 120, damping: 22 })
-  const sMy = useSpring(my, { stiffness: 120, damping: 22 })
-  const tiltX = useTransform(sMy, [-0.5, 0.5], ['6deg', '-6deg'])
-  const tiltY = useTransform(sMx, [-0.5, 0.5], ['-8deg', '8deg'])
-  const stackTransform = useMotionTemplate`rotateX(${tiltX}) rotateY(${tiltY})`
-
-  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    mx.set((e.clientX - rect.left) / rect.width - 0.5)
-    my.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-  const resetTilt = () => {
-    mx.set(0)
-    my.set(0)
-  }
-
   return (
-    <motion.div
-      variants={fadeUp}
-      className={`relative ${className}`}
-      style={{ perspective: 1400 }}
-    >
-      <motion.div
-        onMouseMove={handleTilt}
-        onMouseLeave={resetTilt}
-        style={{
-          transform: stackTransform,
-          transformStyle: 'preserve-3d',
-        }}
-        className="relative"
-      >
+    <motion.div variants={fadeUp} className={`relative ${className}`}>
+      <div className="relative">
         {/* Capa 3 — back frame con patrón diagonal (offset top-left) */}
         <div
           aria-hidden
           className="absolute border border-accent/45 pointer-events-none"
           style={{
             inset: '-22px 22px 22px -22px',
-            transform: 'translateZ(-60px)',
             background:
               'repeating-linear-gradient(45deg, rgba(156,107,79,0.06) 0 2px, transparent 2px 8px)',
           }}
@@ -243,15 +205,13 @@ function YearBlock({
           className="absolute border border-line pointer-events-none"
           style={{
             inset: '18px -18px -18px 18px',
-            transform: 'translateZ(-30px)',
             background: 'rgba(156, 107, 79, 0.12)',
             boxShadow: '0 20px 60px -30px rgba(28,25,23,0.35)',
           }}
         />
 
-        {/* Capa 1 — moodboard carousel (wrapper con translateZ(0) para
-            integrarlo al stack 3D del padre con preserve-3d) */}
-        <div className="relative w-full" style={{ transform: 'translateZ(0)' }}>
+        {/* Capa 1 — moodboard carousel */}
+        <div className="relative w-full">
           <MoodboardCarousel
             images={project.moodboardImages}
             alt={`Moodboard ${project.title}`}
@@ -311,14 +271,12 @@ function YearBlock({
         <div
           aria-hidden
           className="absolute -top-2 -right-2 w-8 h-8 border-t border-r border-accent pointer-events-none"
-          style={{ transform: 'translateZ(12px)' }}
         />
         <div
           aria-hidden
           className="absolute -bottom-2 -left-2 w-8 h-8 border-b border-l border-accent pointer-events-none"
-          style={{ transform: 'translateZ(12px)' }}
         />
-      </motion.div>
+      </div>
     </motion.div>
   )
 }

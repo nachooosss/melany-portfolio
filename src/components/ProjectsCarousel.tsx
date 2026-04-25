@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  AnimatePresence,
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-} from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Maximize2, ImageIcon } from 'lucide-react'
 import { cv } from '../data/cv'
 import SectionHeading from './SectionHeading'
@@ -58,25 +52,6 @@ export default function ProjectsCarousel() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [prev, next, lightboxOpen])
-
-  // 3D tilt that reacts to mouse position over the featured card
-  const rx = useMotionValue(0)
-  const ry = useMotionValue(0)
-  const sRx = useSpring(rx, { stiffness: 120, damping: 18 })
-  const sRy = useSpring(ry, { stiffness: 120, damping: 18 })
-  const transform = useMotionTemplate`perspective(1400px) rotateX(${sRx}deg) rotateY(${sRy}deg)`
-
-  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const px = (e.clientX - rect.left) / rect.width - 0.5
-    const py = (e.clientY - rect.top) / rect.height - 0.5
-    rx.set(-py * 10)
-    ry.set(px * 14)
-  }
-  const handleLeave = () => {
-    rx.set(0)
-    ry.set(0)
-  }
 
   // Swipe handlers for mobile
   const touchStartX = useRef<number | null>(null)
@@ -170,33 +145,20 @@ export default function ProjectsCarousel() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Featured 3D tilt card */}
+          {/* Featured card con capas 3D estáticas (sin tilt en hover) */}
           <div
             className="lg:col-span-8 relative"
-            style={{ perspective: '1400px' }}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
-            <div
-              className="relative"
-              onMouseMove={handleMove}
-              onMouseLeave={handleLeave}
-              data-cursor-hover
-            >
-              <motion.div
-                style={{
-                  transform,
-                  transformStyle: 'preserve-3d',
-                }}
-                className="relative"
-              >
+            <div className="relative" data-cursor-hover>
+              <div className="relative">
                 {/* Capa 3 — frame trasero con patrón diagonal (offset top-left) */}
                 <div
                   aria-hidden
                   className="absolute border border-accent/45"
                   style={{
                     inset: '-22px 22px 22px -22px',
-                    transform: 'translateZ(-60px)',
                     background:
                       'repeating-linear-gradient(45deg, rgba(156,107,79,0.06) 0 2px, transparent 2px 8px)',
                   }}
@@ -208,7 +170,6 @@ export default function ProjectsCarousel() {
                   className="absolute border border-line"
                   style={{
                     inset: '18px -18px -18px 18px',
-                    transform: 'translateZ(-30px)',
                     background: 'rgba(156, 107, 79, 0.12)',
                     boxShadow: '0 20px 60px -30px rgba(28,25,23,0.35)',
                   }}
@@ -225,16 +186,11 @@ export default function ProjectsCarousel() {
                     transition={{
                       duration: 0.5,
                       ease: [0.22, 1, 0.36, 1],
-                      rotateY: { duration: 0.55 },
                       filter: { duration: 0.35 },
                     }}
                     onClick={() => setLightboxOpen(true)}
                     className="group relative block w-full aspect-[4/3] overflow-hidden border border-line bg-surface cursor-zoom-in"
                     aria-label="Abrir imagen en grande"
-                    style={{
-                      transformStyle: 'preserve-3d',
-                      backfaceVisibility: 'hidden',
-                    }}
                   >
                     <SkeletonImage
                       src={active.src}
@@ -270,14 +226,12 @@ export default function ProjectsCarousel() {
                 <div
                   aria-hidden
                   className="absolute -top-2 -right-2 w-8 h-8 border-t border-r border-accent pointer-events-none"
-                  style={{ transform: 'translateZ(12px)' }}
                 />
                 <div
                   aria-hidden
                   className="absolute -bottom-2 -left-2 w-8 h-8 border-b border-l border-accent pointer-events-none"
-                  style={{ transform: 'translateZ(12px)' }}
                 />
-              </motion.div>
+              </div>
 
               {/* Floating shadow layer for depth */}
               <div
@@ -290,10 +244,43 @@ export default function ProjectsCarousel() {
                 }}
               />
             </div>
+
+            {/* Nav prev/next debajo de la imagen */}
+            <nav className="mt-8 flex items-center justify-center gap-3" aria-label="Navegación del carrusel">
+              <button
+                type="button"
+                onClick={prev}
+                aria-label="Anterior"
+                className="group h-11 w-11 border border-line bg-bg/95 flex items-center justify-center hover:border-ink hover:bg-ink hover:text-bg transition-colors"
+              >
+                <ArrowLeft
+                  size={16}
+                  strokeWidth={1.5}
+                  className="transition-transform group-hover:-translate-x-0.5"
+                />
+              </button>
+              <span className="font-mono text-xs uppercase tracking-[0.25em] text-muted whitespace-nowrap min-w-[70px] text-center">
+                {current}
+                <span className="opacity-50 mx-2">/</span>
+                {total}
+              </span>
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Siguiente"
+                className="group h-11 w-11 border border-line bg-bg/95 flex items-center justify-center hover:border-ink hover:bg-ink hover:text-bg transition-colors"
+              >
+                <ArrowRight
+                  size={16}
+                  strokeWidth={1.5}
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
+              </button>
+            </nav>
           </div>
 
-          {/* Meta + controls */}
-          <div className="lg:col-span-4 flex flex-col gap-8 items-center text-center lg:items-start lg:text-left">
+          {/* Meta — solo título + descripción */}
+          <div className="lg:col-span-4 flex flex-col gap-6 items-center text-center lg:items-start lg:text-left">
             <div className="w-full">
               <div className="flex items-baseline gap-3 mb-4 justify-center lg:justify-start">
                 <span className="font-display text-5xl md:text-6xl text-accent leading-none">
@@ -320,49 +307,13 @@ export default function ProjectsCarousel() {
               </AnimatePresence>
             </div>
 
-            <div className="flex items-center gap-3 flex-wrap justify-center lg:justify-start">
-              <button
-                type="button"
-                onClick={prev}
-                aria-label="Anterior"
-                className="group h-12 w-12 border border-line flex items-center justify-center hover:border-ink hover:bg-ink hover:text-bg transition-colors"
-              >
-                <ArrowLeft
-                  size={16}
-                  strokeWidth={1.5}
-                  className="transition-transform group-hover:-translate-x-0.5"
-                />
-              </button>
-              <button
-                type="button"
-                onClick={next}
-                aria-label="Siguiente"
-                className="group h-12 w-12 border border-line flex items-center justify-center hover:border-ink hover:bg-ink hover:text-bg transition-colors"
-              >
-                <ArrowRight
-                  size={16}
-                  strokeWidth={1.5}
-                  className="transition-transform group-hover:translate-x-0.5"
-                />
-              </button>
-              <button
-                type="button"
-                onClick={() => setLightboxOpen(true)}
-                className="ml-3 text-xs uppercase tracking-[0.2em] text-muted hover:text-ink transition-colors link-underline"
-              >
-                Abrir en grande
-              </button>
-            </div>
-
-            <div className="hidden md:block">
-              <p className="text-[10px] uppercase tracking-[0.25em] text-muted mb-2">
-                Navegación
-              </p>
-              <p className="text-xs text-muted">
-                Usa las flechas ← → del teclado · Arrastra en mobile · Click en la imagen
-                para ampliar
-              </p>
-            </div>
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(true)}
+              className="text-xs uppercase tracking-[0.2em] text-muted hover:text-ink transition-colors link-underline"
+            >
+              Abrir en grande
+            </button>
           </div>
         </div>
 

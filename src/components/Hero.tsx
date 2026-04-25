@@ -3,7 +3,6 @@ import {
   useMotionTemplate,
   useMotionValue,
   useScroll,
-  useSpring,
   useTransform,
 } from 'framer-motion'
 import { ArrowRight, ChevronDown, MapPin } from 'lucide-react'
@@ -68,25 +67,6 @@ export default function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.82, 1], [1, 1, 0])
   const contentBlur = useTransform(scrollYProgress, [0, 0.8, 1], ['0px', '0px', '4px'])
   const contentFilter = useMotionTemplate`blur(${contentBlur})`
-
-  // 3D tilt on mouse for the photo stack
-  const mx = useMotionValue(0)
-  const my = useMotionValue(0)
-  const sMx = useSpring(mx, { stiffness: 120, damping: 20 })
-  const sMy = useSpring(my, { stiffness: 120, damping: 20 })
-  const tiltX = useTransform(sMy, [-0.5, 0.5], ['8deg', '-8deg'])
-  const tiltY = useTransform(sMx, [-0.5, 0.5], ['-10deg', '10deg'])
-  const stackTransform = useMotionTemplate`rotateX(${tiltX}) rotateY(${tiltY})`
-
-  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    mx.set((e.clientX - rect.left) / rect.width - 0.5)
-    my.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-  const resetTilt = () => {
-    mx.set(0)
-    my.set(0)
-  }
 
   return (
     <header
@@ -242,43 +222,33 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{ y: photoY, perspective: 1400 }}
+            style={{ y: photoY }}
             className="relative w-[220px] sm:w-[260px] lg:w-[380px] max-w-full"
           >
-            <motion.div
-              onMouseMove={handleTilt}
-              onMouseLeave={resetTilt}
-              style={{
-                transform: stackTransform,
-                transformStyle: 'preserve-3d',
-              }}
-              className="relative"
-            >
-              {/* Layer 3 — furthest back, empty bordered frame (top-left) */}
+            <div className="relative">
+              {/* Layer 3 — back frame con patrón diagonal (offset top-left) */}
               <div
                 aria-hidden
                 className="absolute border border-accent/45"
                 style={{
                   inset: '-22px 22px 22px -22px',
-                  transform: 'translateZ(-60px)',
                   background:
                     'repeating-linear-gradient(45deg, rgba(156,107,79,0.06) 0 2px, transparent 2px 8px)',
                 }}
               />
 
-              {/* Layer 2 — middle, filled warm tint (bottom-right) */}
+              {/* Layer 2 — middle tint (offset bottom-right) */}
               <div
                 aria-hidden
                 className="absolute border border-line"
                 style={{
                   inset: '18px -18px -18px 18px',
-                  transform: 'translateZ(-30px)',
                   background: 'rgba(156, 107, 79, 0.12)',
                   boxShadow: '0 20px 60px -30px rgba(28,25,23,0.35)',
                 }}
               />
 
-              {/* Layer 1 — the real photo, untouched */}
+              {/* Layer 1 — la foto */}
               <SkeletonImage
                 src={cv.personal.photo}
                 alt="Melany Santiesteban, diseñadora de interiores en Panamá"
@@ -287,23 +257,20 @@ export default function Hero() {
                 className="relative border border-line bg-line"
                 style={{
                   aspectRatio: '2 / 3',
-                  transform: 'translateZ(0)',
                   boxShadow: '0 30px 80px -40px rgba(28,25,23,0.4)',
                 }}
               />
 
-              {/* Corner accent tick (foreground) */}
+              {/* Corner ticks editoriales */}
               <div
                 aria-hidden
                 className="absolute -top-2 -right-2 w-8 h-8 border-t border-r border-accent"
-                style={{ transform: 'translateZ(12px)' }}
               />
               <div
                 aria-hidden
                 className="absolute -bottom-2 -left-2 w-8 h-8 border-b border-l border-accent"
-                style={{ transform: 'translateZ(12px)' }}
               />
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </motion.div>
