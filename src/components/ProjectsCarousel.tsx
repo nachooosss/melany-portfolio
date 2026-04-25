@@ -5,6 +5,7 @@ import { cv } from '../data/cv'
 import SectionHeading from './SectionHeading'
 import Lightbox from './Lightbox'
 import SkeletonImage from './SkeletonImage'
+import { useSwipe } from '../hooks/useSwipe'
 
 export default function ProjectsCarousel() {
   const items = cv.projects.items
@@ -53,20 +54,12 @@ export default function ProjectsCarousel() {
     return () => window.removeEventListener('keydown', onKey)
   }, [prev, next, lightboxOpen])
 
-  // Swipe handlers for mobile
-  const touchStartX = useRef<number | null>(null)
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX
-  }
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return
-    const dx = e.changedTouches[0].clientX - touchStartX.current
-    if (Math.abs(dx) > 60) {
-      if (dx < 0) next()
-      else prev()
-    }
-    touchStartX.current = null
-  }
+  // Swipe horizontal en mobile
+  const swipe = useSwipe({
+    threshold: 60,
+    onSwipeLeft: next,
+    onSwipeRight: prev,
+  })
 
   const active = items[index]
   const total = String(items.length).padStart(2, '0')
@@ -148,8 +141,8 @@ export default function ProjectsCarousel() {
           {/* Featured card con capas 3D estáticas (sin tilt en hover) */}
           <div
             className="lg:col-span-8 relative"
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
+            onTouchStart={swipe.onTouchStart}
+            onTouchEnd={swipe.onTouchEnd}
           >
             <div className="relative" data-cursor-hover>
               <div className="relative">

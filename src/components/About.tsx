@@ -3,21 +3,21 @@ import { UserRound } from 'lucide-react'
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
+import Section from './Section'
 
 export default function About() {
   return (
-    <section id="about" className="section-gutter py-24 md:py-32 border-t border-line">
-      <div className="max-content">
-        <SectionHeading
-          number="01"
-          eyebrow="Sobre mí"
-          icon={UserRound}
-          title={
-            <>
-              Diseño con <span className="italic text-muted">intención</span>.
-            </>
-          }
-        />
+    <Section id="about">
+      <SectionHeading
+        number="01"
+        eyebrow="Sobre mí"
+        icon={UserRound}
+        title={
+          <>
+            Diseño con <span className="italic text-muted">intención</span>.
+          </>
+        }
+      />
 
         <motion.div
           variants={staggerContainer}
@@ -78,8 +78,7 @@ export default function About() {
               ))}
             </div>
           </motion.div>
-        </motion.div>
-      </div>
-    </section>
+      </motion.div>
+    </Section>
   )
 }

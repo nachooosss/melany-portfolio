@@ -12,20 +12,20 @@ import {
 import { cv } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
+import Section from './Section'
 
 export default function Contact() {
   return (
-    <section id="contact" className="section-gutter py-24 md:py-40 border-t border-line">
-      <div className="max-content">
-        <SectionHeading
-          number="08"
-          eyebrow="Contacto"
-          icon={Send}
-          title={
-            <>
-              ¿Trabajamos <span className="italic text-muted">juntos?</span>
-            </>
-          }
+    <Section id="contact" padding="large">
+      <SectionHeading
+        number="08"
+        eyebrow="Contacto"
+        icon={Send}
+        title={
+          <>
+            ¿Trabajamos <span className="italic text-muted">juntos?</span>
+          </>
+        }
         />
 
         {/* CTA principal — WhatsApp directo */}
@@ -203,8 +203,7 @@ export default function Contact() {
               </p>
             </div>
           </motion.a>
-        </motion.div>
-      </div>
-    </section>
+      </motion.div>
+    </Section>
   )
 }

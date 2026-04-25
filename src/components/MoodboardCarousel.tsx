@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
 import Lightbox from './Lightbox'
 import type { Project } from '../data/cv'
+import { useSwipe } from '../hooks/useSwipe'
 
 type Props = {
   images: string[]
@@ -32,8 +33,6 @@ export default function MoodboardCarousel({
 }: Props) {
   const sliderRef = useRef<HTMLUListElement>(null)
   const intervalRef = useRef<number | null>(null)
-  const touchStartX = useRef<number | null>(null)
-  const swipedRef = useRef(false)
 
   // Indice de la imagen visible (slot 2 == imagen "activa") dentro del array
   // original `images`. Arranca en 1 porque inicialmente slot 2 = images[1].
@@ -77,29 +76,18 @@ export default function MoodboardCarousel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX
-    swipedRef.current = false
-    stopAutoplay()
-  }
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current !== null) {
-      const dx = e.changedTouches[0].clientX - touchStartX.current
-      if (Math.abs(dx) > SWIPE_THRESHOLD) {
-        swipedRef.current = true
-        if (dx > 0) retreat()
-        else advance()
-      }
-      touchStartX.current = null
-    }
-    startAutoplay()
-  }
+  const swipe = useSwipe({
+    threshold: SWIPE_THRESHOLD,
+    onSwipeLeft: advance,
+    onSwipeRight: retreat,
+    onTouchBegin: stopAutoplay,
+    onTouchEnd: startAutoplay,
+  })
 
   const handleClick = () => {
     // Si fue swipe, no abrir lightbox
-    if (swipedRef.current) {
-      swipedRef.current = false
+    if (swipe.wasSwipe.current) {
+      swipe.wasSwipe.current = false
       return
     }
     stopAutoplay()
@@ -128,8 +116,8 @@ export default function MoodboardCarousel({
           aria-label="Ver imagen en grande"
           onMouseEnter={stopAutoplay}
           onMouseLeave={startAutoplay}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          onTouchStart={swipe.onTouchStart}
+          onTouchEnd={swipe.onTouchEnd}
           onClick={handleClick}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {

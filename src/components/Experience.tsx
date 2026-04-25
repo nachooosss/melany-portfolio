@@ -21,24 +21,7 @@ import { cv, type ExperienceItem } from '../data/cv'
 import { fadeUp, revealViewport, staggerContainer } from '../hooks/useScrollReveal'
 import SectionHeading from './SectionHeading'
 import MoodboardCarousel from './MoodboardCarousel'
-import {
-  AutoCADIcon,
-  SketchUpIcon,
-  D5Icon,
-  TwinmotionIcon,
-  PhotoshopIcon,
-} from './TechIcons'
-
-const TOOL_ICONS: Record<
-  string,
-  (props: { size?: number; strokeWidth?: number; className?: string }) => JSX.Element
-> = {
-  AutoCAD: AutoCADIcon,
-  SketchUp: SketchUpIcon,
-  'D5 Render': D5Icon,
-  Twinmotion: TwinmotionIcon,
-  Photoshop: PhotoshopIcon,
-}
+import { TECH_ICONS } from './TechIcons'
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Bed,
@@ -68,7 +51,7 @@ export default function Experience() {
           icon={Briefcase}
           title={
             <>
-              Línea de <span className="italic text-muted">proyectos</span>
+              Mi <span className="italic text-muted">trayectoria</span>
             </>
           }
         />
@@ -426,7 +409,7 @@ function ContentBlock({ project }: { project: ExperienceItem }) {
           </span>
           <div className="flex flex-wrap gap-2">
             {project.tools.map((tool) => {
-              const Icon = TOOL_ICONS[tool]
+              const Icon = TECH_ICONS[tool]
               return (
                 <span
                   key={tool}

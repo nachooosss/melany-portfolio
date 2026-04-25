@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project } from '../data/cv'
+import { useSwipe } from '../hooks/useSwipe'
 
 type Props = {
   open: boolean
@@ -37,20 +38,11 @@ export default function Lightbox({
     }
   }, [open, onClose, onPrev, onNext])
 
-  // Swipe handlers para mobile
-  const touchStartX = useRef<number | null>(null)
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX
-  }
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return
-    const dx = e.changedTouches[0].clientX - touchStartX.current
-    if (Math.abs(dx) > 50) {
-      if (dx > 0 && index > 0) onPrev()
-      else if (dx < 0 && index < items.length - 1) onNext()
-    }
-    touchStartX.current = null
-  }
+  // Swipe horizontal en mobile
+  const swipe = useSwipe({
+    onSwipeLeft: () => index < items.length - 1 && onNext(),
+    onSwipeRight: () => index > 0 && onPrev(),
+  })
 
   if (typeof document === 'undefined') return null
 
@@ -118,8 +110,8 @@ export default function Lightbox({
           <div
             className="relative flex flex-col items-center gap-5 max-w-[92vw]"
             onClick={(e) => e.stopPropagation()}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
+            onTouchStart={swipe.onTouchStart}
+            onTouchEnd={swipe.onTouchEnd}
           >
             <AnimatePresence mode="wait">
               <motion.img

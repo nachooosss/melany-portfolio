@@ -1,7 +1,6 @@
 import {
   motion,
   useMotionTemplate,
-  useMotionValue,
   useScroll,
   useTransform,
 } from 'framer-motion'
@@ -93,6 +92,9 @@ export default function Hero() {
           </a>
           <a href="#experience" className="link-underline hover:text-ink transition-colors">
             Experiencia
+          </a>
+          <a href="#skills" className="link-underline hover:text-ink transition-colors">
+            Habilidades
           </a>
           <a href="#contact" className="link-underline hover:text-ink transition-colors">
             Contacto

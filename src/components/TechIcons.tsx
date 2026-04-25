@@ -113,3 +113,33 @@ export function PhotoshopIcon({ size = 28, strokeWidth = 5, className = '' }: Ic
     </svg>
   )
 }
+
+export type TechIconComponent = (props: IconProps) => JSX.Element
+
+/**
+ * Mapping centralizado de software → icono. Único punto de verdad
+ * usado en ToolsStrip, Skills, Experience, Certifications.
+ */
+export const TECH_ICONS: Record<string, TechIconComponent> = {
+  AutoCAD: AutoCADIcon,
+  SketchUp: SketchUpIcon,
+  'D5 Render': D5Icon,
+  Twinmotion: TwinmotionIcon,
+  Photoshop: PhotoshopIcon,
+}
+
+/**
+ * Devuelve los iconos relacionados a un nombre arbitrario (cert, tool, etc.).
+ * Una cert puede mencionar varios softwares (ej: "D5 y Twinmotion") — busca
+ * todas las coincidencias case-insensitive en el nombre.
+ */
+export function getIconsForLabel(name: string): TechIconComponent[] {
+  const icons: TechIconComponent[] = []
+  const lower = name.toLowerCase()
+  if (lower.includes('autocad')) icons.push(AutoCADIcon)
+  if (lower.includes('sketchup')) icons.push(SketchUpIcon)
+  if (lower.includes('d5')) icons.push(D5Icon)
+  if (lower.includes('twinmotion')) icons.push(TwinmotionIcon)
+  if (lower.includes('photoshop')) icons.push(PhotoshopIcon)
+  return icons
+}

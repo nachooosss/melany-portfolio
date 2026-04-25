@@ -1,58 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://melany-portfolio.vercel.app/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es-pa" href="https://melany-portfolio.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://melany-portfolio.vercel.app/" />
+
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/perfil.jpeg</image:loc>
       <image:title>Melany Santiesteban — Diseñadora de Interiores</image:title>
+      <image:caption>Retrato profesional de Melany Santiesteban, diseñadora de interiores en Ciudad de Panamá</image:caption>
     </image:image>
+
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/1.webp</image:loc>
-      <image:caption>Restaurante contemporáneo</image:caption>
+      <image:title>Restaurante contemporáneo</image:title>
+      <image:caption>Render 3D de área de restaurante con mobiliario en madera y arte mural natural</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/2.webp</image:loc>
-      <image:caption>Cocina abierta moderna</image:caption>
+      <image:title>Cocina abierta moderna</image:title>
+      <image:caption>Cocina abierta con acabados en madera y superficies claras, iluminación indirecta</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/3.webp</image:loc>
-      <image:caption>Gimnasio minimalista</image:caption>
+      <image:title>Gimnasio minimalista</image:title>
+      <image:caption>Gimnasio interior con iluminación ambiental y revestimientos texturizados</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/4.webp</image:loc>
-      <image:caption>Zona de entrenamiento</image:caption>
+      <image:title>Zona de entrenamiento</image:title>
+      <image:caption>Zona de entrenamiento con espejos de gran formato y acabados cálidos</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/5.webp</image:loc>
-      <image:caption>Área de maquillaje profesional</image:caption>
+      <image:title>Área de maquillaje profesional</image:title>
+      <image:caption>Área de maquillaje con iluminación perimetral uniforme</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/6.webp</image:loc>
-      <image:caption>Lounge con vista urbana</image:caption>
+      <image:title>Lounge con vista urbana</image:title>
+      <image:caption>Espacio lounge contemporáneo con vista a la ciudad y elementos naturales</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/7.webp</image:loc>
-      <image:caption>Dormitorio contemporáneo</image:caption>
+      <image:title>Dormitorio contemporáneo</image:title>
+      <image:caption>Dormitorio minimalista con elementos decorativos gráficos e iluminación cálida</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/8.webp</image:loc>
-      <image:caption>Detalle de mobiliario auxiliar</image:caption>
+      <image:title>Detalle de mobiliario auxiliar</image:title>
+      <image:caption>Detalle de mobiliario auxiliar con iluminación tenue y simplicidad formal</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/9.webp</image:loc>
-      <image:caption>Coffee Shop orgánico</image:caption>
+      <image:title>Coffee Shop orgánico</image:title>
+      <image:caption>Coffee Shop con diseño orgánico, formas curvas y acentos naturales</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/10.webp</image:loc>
-      <image:caption>Dormitorio principal</image:caption>
+      <image:title>Dormitorio principal</image:title>
+      <image:caption>Dormitorio principal con materiales naturales e iluminación ambiental</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://melany-portfolio.vercel.app/renders/11.webp</image:loc>
-      <image:caption>Dormitorio contemporáneo geométrico</image:caption>
+      <image:title>Dormitorio contemporáneo geométrico</image:title>
+      <image:caption>Dormitorio con materiales naturales y elementos decorativos geométricos</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/residencial/1.webp</image:loc>
+      <image:title>Proyecto Residencial — Japandi minimalista</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/residencial/2.webp</image:loc>
+      <image:title>Proyecto Residencial — Japandi minimalista</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/residencial/3.webp</image:loc>
+      <image:title>Proyecto Residencial — Japandi minimalista</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/residencial/4.webp</image:loc>
+      <image:title>Proyecto Residencial — Japandi minimalista</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/residencial/5.webp</image:loc>
+      <image:title>Proyecto Residencial — Japandi minimalista</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/salvia/1.webp</image:loc>
+      <image:title>Salvia Ecologic Makeup — Diseño biofílico</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/salvia/2.webp</image:loc>
+      <image:title>Salvia Ecologic Makeup — Diseño biofílico</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/salvia/3.webp</image:loc>
+      <image:title>Salvia Ecologic Makeup — Diseño biofílico</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/salvia/4.webp</image:loc>
+      <image:title>Salvia Ecologic Makeup — Diseño biofílico</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://melany-portfolio.vercel.app/moodboard/salvia/5.webp</image:loc>
+      <image:title>Salvia Ecologic Makeup — Diseño biofílico</image:title>
     </image:image>
   </url>
 </urlset>

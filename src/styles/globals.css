@@ -475,9 +475,9 @@ svg {
   top: 50%;
   width: 0;
   height: 0;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease;
-  transition-delay: calc(0.06s * var(--i));
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease;
+  transition-delay: calc(0.09s * var(--i));
   /* Cerrado: arranca en el centro sin offset */
   transform: rotate(-90deg) translateX(0);
   opacity: 0;
@@ -509,9 +509,9 @@ svg {
     0 4px 12px -3px rgba(0, 0, 0, 0.3);
   /* Contra-rota para mantener icono+label derechos en pantalla */
   transform: rotate(calc(90deg - 360deg / var(--n) * var(--i)));
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.25s ease, color 0.25s ease;
-  transition-delay: calc(0.06s * var(--i));
+  transition-delay: calc(0.09s * var(--i));
 }
 
 .menu-radial li.primary a {
@@ -561,7 +561,7 @@ svg {
     0 6px 16px -4px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(245, 241, 236, 0.2);
   cursor: pointer;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .menu-radial.active .menu-toggle {
