@@ -2,8 +2,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Melany Santiesteban — MS Interior Design</title>
-    <link>https://melany-portfolio.vercel.app/</link>
-    <atom:link href="https://melany-portfolio.vercel.app/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://melany-portfolio-indol.vercel.app/</link>
+    <atom:link href="https://melany-portfolio-indol.vercel.app/feed.xml" rel="self" type="application/rss+xml" />
     <description>Renders, visualización 3D y proyectos de diseño de interiores de Melany Santiesteban en Ciudad de Panamá. Estilo Japandi minimalista y biofílico orgánico.</description>
     <language>es-PA</language>
     <copyright>© 2026 Melany Santiesteban</copyright>
@@ -14,114 +14,114 @@
     <category>Arquitectura</category>
     <generator>Vite + React</generator>
     <image>
-      <url>https://melany-portfolio.vercel.app/logo.webp</url>
+      <url>https://melany-portfolio-indol.vercel.app/logo.webp</url>
       <title>Melany Santiesteban — MS Interior Design</title>
-      <link>https://melany-portfolio.vercel.app/</link>
+      <link>https://melany-portfolio-indol.vercel.app/</link>
     </image>
 
     <item>
       <title>Restaurante contemporáneo</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-1</guid>
       <description>Render 3D de área de restaurante con mobiliario en madera y arte mural natural.</description>
       <category>Comercial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/1.webp" type="image/webp" length="119942" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/1.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/1.webp" type="image/webp" length="119942" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/1.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Cocina abierta moderna</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-2</guid>
       <description>Cocina abierta con acabados en madera y superficies claras, iluminación indirecta.</description>
       <category>Residencial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/2.webp" type="image/webp" length="61728" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/2.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/2.webp" type="image/webp" length="61728" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/2.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Gimnasio minimalista</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-3</guid>
       <description>Gimnasio interior con iluminación ambiental y revestimientos texturizados.</description>
       <category>Comercial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/3.webp" type="image/webp" length="90386" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/3.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/3.webp" type="image/webp" length="90386" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/3.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Zona de entrenamiento</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-4</guid>
       <description>Zona de entrenamiento con espejos de gran formato y acabados cálidos.</description>
       <category>Comercial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/4.webp" type="image/webp" length="49500" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/4.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/4.webp" type="image/webp" length="49500" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/4.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Área de maquillaje profesional</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-5</guid>
       <description>Área de maquillaje con iluminación perimetral uniforme.</description>
       <category>Comercial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/5.webp" type="image/webp" length="97926" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/5.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/5.webp" type="image/webp" length="97926" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/5.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Lounge con vista urbana</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-6</guid>
       <description>Espacio lounge contemporáneo con vista a la ciudad y elementos naturales.</description>
       <category>Residencial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/6.webp" type="image/webp" length="96860" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/6.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/6.webp" type="image/webp" length="96860" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/6.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Dormitorio contemporáneo</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-7</guid>
       <description>Dormitorio minimalista con elementos decorativos gráficos e iluminación cálida.</description>
       <category>Residencial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/7.webp" type="image/webp" length="33280" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/7.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/7.webp" type="image/webp" length="33280" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/7.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Detalle de mobiliario auxiliar</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-8</guid>
       <description>Detalle de mobiliario auxiliar con iluminación tenue y simplicidad formal.</description>
       <category>Residencial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/8.webp" type="image/webp" length="60716" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/8.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/8.webp" type="image/webp" length="60716" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/8.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Coffee Shop orgánico</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-9</guid>
       <description>Coffee Shop con diseño orgánico, formas curvas y acentos naturales.</description>
       <category>Comercial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/9.webp" type="image/webp" length="2415450" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/9.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/9.webp" type="image/webp" length="2415450" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/9.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Dormitorio principal</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-10</guid>
       <description>Dormitorio principal con materiales naturales e iluminación ambiental.</description>
       <category>Residencial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/10.webp" type="image/webp" length="72584" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/10.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/10.webp" type="image/webp" length="72584" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/10.webp" type="image/webp" medium="image" />
     </item>
     <item>
       <title>Dormitorio contemporáneo geométrico</title>
-      <link>https://melany-portfolio.vercel.app/#projects</link>
+      <link>https://melany-portfolio-indol.vercel.app/#projects</link>
       <guid isPermaLink="false">render-11</guid>
       <description>Dormitorio con materiales naturales y elementos decorativos geométricos.</description>
       <category>Residencial</category>
-      <enclosure url="https://melany-portfolio.vercel.app/renders/11.webp" type="image/webp" length="63380" />
-      <media:content url="https://melany-portfolio.vercel.app/renders/11.webp" type="image/webp" medium="image" />
+      <enclosure url="https://melany-portfolio-indol.vercel.app/renders/11.webp" type="image/webp" length="63380" />
+      <media:content url="https://melany-portfolio-indol.vercel.app/renders/11.webp" type="image/webp" medium="image" />
     </item>
 
     <item>
       <title>Proyecto Residencial — Japandi minimalista (12.5 m²)</title>
-      <link>https://melany-portfolio.vercel.app/#experience</link>
+      <link>https://melany-portfolio-indol.vercel.app/#experience</link>
       <guid isPermaLink="false">project-residencial</guid>
       <pubDate>Sun, 28 Dec 2025 00:00:00 GMT</pubDate>
       <description>Rediseño completo de habitación de 12.5 m², transformando un espacio neutro en un ambiente con identidad propia mediante estilo Japandi con influencias minimalistas. Paleta de terracota, verdes apagados e iluminación cálida.</description>
@@ -130,7 +130,7 @@
     </item>
     <item>
       <title>Salvia Ecologic Makeup — Diseño biofílico (180 m²)</title>
-      <link>https://melany-portfolio.vercel.app/#experience</link>
+      <link>https://melany-portfolio-indol.vercel.app/#experience</link>
       <guid isPermaLink="false">project-salvia</guid>
       <pubDate>Sun, 31 Mar 2026 00:00:00 GMT</pubDate>
       <description>Diseño integral de 180 m² para tienda de maquillaje ecológico, con concepto biofílico que integra formas curvas, materiales reciclados y vegetación interior.</description>

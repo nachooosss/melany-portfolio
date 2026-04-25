@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://melany-portfolio.vercel.app/sitemap.xml
+Sitemap: https://melany-portfolio-indol.vercel.app/sitemap.xml

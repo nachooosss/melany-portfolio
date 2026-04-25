@@ -248,7 +248,7 @@ Cambiarlas acá afecta TODO el sitio simultáneamente.
 ## 📋 TODOs pendientes (no afectan funcionamiento)
 
 - [ ] Subir foto/composición OG image dedicada 1200×630 en `public/og-image.png` para previews premium en WhatsApp/Facebook (actualmente usa `logo.webp`).
-- [ ] Reemplazar URL placeholder `melany-portfolio.vercel.app` por dominio final en `index.html`, `sitemap.xml`, `feed.xml`, `feed.json` cuando se compre.
+- [ ] Cuando se compre dominio propio, reemplazar `melany-portfolio-indol.vercel.app` por el nuevo dominio en `index.html`, `sitemap.xml`, `feed.xml`, `feed.json`, `robots.txt`.
 - [ ] Después de comprar dominio, dar de alta en [Google Search Console](https://search.google.com/search-console) y enviar `sitemap.xml`.
 
 ---
