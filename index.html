@@ -22,25 +22,37 @@
     <link rel="alternate" hreflang="es-pa" href="https://melany-portfolio.vercel.app/" />
     <link rel="alternate" hreflang="x-default" href="https://melany-portfolio.vercel.app/" />
 
-    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Discord) -->
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content="Melany Santiesteban — MS Interior Design" />
     <meta property="og:title" content="Melany Santiesteban | Diseñadora de Interiores · Visualización 3D · Panamá" />
     <meta property="og:description" content="Portafolio de Melany Santiesteban: visualización 3D fotorrealista y planimetría técnica para proyectos residenciales, comerciales y corporativos en Panamá." />
     <meta property="og:url" content="https://melany-portfolio.vercel.app/" />
     <meta property="og:locale" content="es_PA" />
-    <meta property="og:image" content="https://melany-portfolio.vercel.app/perfil.jpeg" />
+
+    <!-- og:image principal: logo de marca (aparece en WhatsApp, FB, LinkedIn, Discord) -->
+    <meta property="og:image" content="https://melany-portfolio.vercel.app/logo.webp" />
+    <meta property="og:image:secure_url" content="https://melany-portfolio.vercel.app/logo.webp" />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:alt" content="MS Interior Design — Logo de Melany Santiesteban" />
+
+    <!-- og:image secundaria: foto de perfil (algunas plataformas la mostrarán como gallery) -->
+    <meta property="og:image" content="https://melany-portfolio.vercel.app/perfil.webp" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:alt" content="Melany Santiesteban, diseñadora de interiores en Panamá" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+
     <meta property="profile:first_name" content="Melany" />
     <meta property="profile:last_name" content="Santiesteban" />
+    <meta property="profile:username" content="ms.desiggns" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter Card — usa logo como imagen principal -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ms.desiggns" />
+    <meta name="twitter:creator" content="@ms.desiggns" />
     <meta name="twitter:title" content="Melany Santiesteban | Diseñadora de Interiores · Panamá" />
     <meta name="twitter:description" content="Visualización 3D fotorrealista y planimetría técnica. Portafolio y CV." />
-    <meta name="twitter:image" content="https://melany-portfolio.vercel.app/perfil.jpeg" />
+    <meta name="twitter:image" content="https://melany-portfolio.vercel.app/logo.webp" />
+    <meta name="twitter:image:alt" content="MS Interior Design — Logo de Melany Santiesteban" />
 
     <!-- Geo (ayuda a Google a posicionarte localmente) -->
     <meta name="geo.region" content="PA" />
@@ -62,7 +74,7 @@
           "jobTitle": "Diseñadora de Interiores",
           "description": "Diseñadora de interiores en Panamá especializada en visualización 3D fotorrealista y planimetría técnica para proyectos residenciales, comerciales y corporativos.",
           "url": "https://melany-portfolio.vercel.app/",
-          "image": "https://melany-portfolio.vercel.app/perfil.jpeg",
+          "image": "https://melany-portfolio.vercel.app/perfil.webp",
           "email": "mailto:msantiestebangs@gmail.com",
           "telephone": "+507-6577-6878",
           "sameAs": [
@@ -118,7 +130,7 @@
           "@type": "ProfessionalService",
           "@id": "https://melany-portfolio.vercel.app/#service",
           "name": "MS Interior Design",
-          "image": "https://melany-portfolio.vercel.app/perfil.jpeg",
+          "image": "https://melany-portfolio.vercel.app/perfil.webp",
           "url": "https://melany-portfolio.vercel.app/",
           "founder": { "@id": "https://melany-portfolio.vercel.app/#person" },
           "areaServed": {
@@ -188,7 +200,7 @@
     </script>
 
     <!-- Preload assets críticos above-the-fold -->
-    <link rel="preload" as="image" href="/perfil.jpeg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/perfil.webp" fetchpriority="high" />
     <link rel="preload" as="image" href="/renders/1.webp" />
 
     <!-- DNS prefetch para CDN de fonts -->

@@ -63,7 +63,7 @@ export const cv = {
     },
     // TODO: Melany debe añadir la URL de su portafolio (Behance / Drive / sitio propio)
     portfolio: { label: 'Ver portafolio', url: '#' },
-    photo: '/perfil.jpeg',
+    photo: '/perfil.webp',
     monogram: 'MS',
   },
 

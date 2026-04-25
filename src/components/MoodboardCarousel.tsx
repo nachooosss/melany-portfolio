@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
 import Lightbox from './Lightbox'
 import type { Project } from '../data/cv'
@@ -25,7 +25,7 @@ const SWIPE_THRESHOLD = 50
  * Click/tap en la imagen → abre lightbox. Swipe lateral en mobile cambia la imagen.
  * Navegación prev/next debajo del carrusel.
  */
-export default function MoodboardCarousel({
+function MoodboardCarousel({
   images,
   alt,
   children,
@@ -39,42 +39,41 @@ export default function MoodboardCarousel({
   const [activeIndex, setActiveIndex] = useState(images.length > 1 ? 1 : 0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
 
-  const advance = () => {
+  const advance = useCallback(() => {
     const slider = sliderRef.current
     if (!slider) return
     const items = slider.querySelectorAll<HTMLLIElement>('.moodboard-item')
     if (items.length === 0) return
     slider.append(items[0])
     setActiveIndex((p) => (p + 1) % images.length)
-  }
+  }, [images.length])
 
-  const retreat = () => {
+  const retreat = useCallback(() => {
     const slider = sliderRef.current
     if (!slider) return
     const items = slider.querySelectorAll<HTMLLIElement>('.moodboard-item')
     if (items.length === 0) return
     slider.prepend(items[items.length - 1])
     setActiveIndex((p) => (p - 1 + images.length) % images.length)
-  }
+  }, [images.length])
 
-  const startAutoplay = () => {
+  const startAutoplay = useCallback(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     if (intervalRef.current) return
     intervalRef.current = window.setInterval(advance, intervalMs)
-  }
+  }, [advance, intervalMs])
 
-  const stopAutoplay = () => {
+  const stopAutoplay = useCallback(() => {
     if (intervalRef.current) {
       window.clearInterval(intervalRef.current)
       intervalRef.current = null
     }
-  }
+  }, [])
 
   useEffect(() => {
     startAutoplay()
     return stopAutoplay
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [startAutoplay, stopAutoplay])
 
   const swipe = useSwipe({
     threshold: SWIPE_THRESHOLD,
@@ -84,7 +83,7 @@ export default function MoodboardCarousel({
     onTouchEnd: startAutoplay,
   })
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     // Si fue swipe, no abrir lightbox
     if (swipe.wasSwipe.current) {
       swipe.wasSwipe.current = false
@@ -92,19 +91,58 @@ export default function MoodboardCarousel({
     }
     stopAutoplay()
     setLightboxOpen(true)
-  }
+  }, [swipe.wasSwipe, stopAutoplay])
 
-  const lightboxItems: Project[] = images.map((src, i) => ({
-    src,
-    alt: `${alt} — ${i + 1} de ${images.length}`,
-    title: '',
-    description: '',
-  }))
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        handleClick()
+      }
+    },
+    [handleClick],
+  )
 
-  const handleLightboxPrev = () =>
-    setActiveIndex((p) => (p - 1 + images.length) % images.length)
-  const handleLightboxNext = () =>
-    setActiveIndex((p) => (p + 1) % images.length)
+  const handlePrevClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      retreat()
+    },
+    [retreat],
+  )
+
+  const handleNextClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      advance()
+    },
+    [advance],
+  )
+
+  // Lightbox items derivados — memoizados para no recrear el array en cada render
+  const lightboxItems = useMemo<Project[]>(
+    () =>
+      images.map((src, i) => ({
+        src,
+        alt: `${alt} — ${i + 1} de ${images.length}`,
+        title: '',
+        description: '',
+      })),
+    [images, alt],
+  )
+
+  const handleLightboxPrev = useCallback(
+    () => setActiveIndex((p) => (p - 1 + images.length) % images.length),
+    [images.length],
+  )
+  const handleLightboxNext = useCallback(
+    () => setActiveIndex((p) => (p + 1) % images.length),
+    [images.length],
+  )
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false)
+    startAutoplay()
+  }, [startAutoplay])
 
   return (
     <>
@@ -119,12 +157,7 @@ export default function MoodboardCarousel({
           onTouchStart={swipe.onTouchStart}
           onTouchEnd={swipe.onTouchEnd}
           onClick={handleClick}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault()
-              handleClick()
-            }
-          }}
+          onKeyDown={handleKeyDown}
         >
           <ul ref={sliderRef} className="moodboard-slider" aria-label={alt}>
             {images.map((src, i) => (
@@ -151,10 +184,7 @@ export default function MoodboardCarousel({
         <nav className="moodboard-nav-below" aria-label="Navegación del moodboard">
           <button
             type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              retreat()
-            }}
+            onClick={handlePrevClick}
             aria-label="Imagen anterior"
             className="moodboard-btn"
           >
@@ -167,10 +197,7 @@ export default function MoodboardCarousel({
           </span>
           <button
             type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              advance()
-            }}
+            onClick={handleNextClick}
             aria-label="Imagen siguiente"
             className="moodboard-btn"
           >
@@ -183,13 +210,13 @@ export default function MoodboardCarousel({
         open={lightboxOpen}
         items={lightboxItems}
         index={activeIndex}
-        onClose={() => {
-          setLightboxOpen(false)
-          startAutoplay()
-        }}
+        onClose={handleLightboxClose}
         onPrev={handleLightboxPrev}
         onNext={handleLightboxNext}
       />
     </>
   )
 }
+
+// Memo: si las props (images, alt, intervalMs, children) no cambian, no re-renderiza
+export default memo(MoodboardCarousel)
