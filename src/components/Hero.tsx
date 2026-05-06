@@ -5,7 +5,7 @@ import {
   useTransform,
 } from 'framer-motion'
 import { ArrowRight, ChevronDown, MapPin } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { cv } from '../data/cv'
 import DownloadButton from './DownloadButton'
 import Logo from './Logo'
@@ -40,6 +40,58 @@ function SplitName({ text, base = 0 }: { text: string; base?: number }) {
         >
           {ch === ' ' ? '\u00A0' : ch}
         </motion.span>
+      ))}
+    </span>
+  )
+}
+
+/**
+ * Anima caracter-por-caracter pero agrupa cada palabra en un inline-block
+ * para impedir cortes a mitad de palabra cuando el texto wrappea.
+ */
+function AnimatedText({
+  text,
+  baseDelay,
+  charDelay,
+  duration,
+  yFrom,
+  ariaLabel,
+}: {
+  text: string
+  baseDelay: number
+  charDelay: number
+  duration: number
+  yFrom: number
+  ariaLabel?: string
+}) {
+  const words = text.split(' ')
+  let i = -1
+  return (
+    <span aria-label={ariaLabel}>
+      {words.map((word, wi) => (
+        <Fragment key={`w-${wi}`}>
+          <span className="inline-block whitespace-nowrap">
+            {word.split('').map((ch) => {
+              i++
+              return (
+                <motion.span
+                  key={`c-${wi}-${i}`}
+                  initial={{ opacity: 0, y: yFrom }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: baseDelay + i * charDelay,
+                    duration,
+                    ease: EASE_OUT_EXPO,
+                  }}
+                  className="inline-block"
+                >
+                  {ch}
+                </motion.span>
+              )
+            })}
+          </span>
+          {wi < words.length - 1 && ' '}
+        </Fragment>
       ))}
     </span>
   )
@@ -176,45 +228,25 @@ export default function Hero() {
           </h1>
 
           <div className="mt-10 max-w-prose">
-            <p
-              className="text-lg md:text-xl text-ink"
-              aria-label={cv.personal.role}
-            >
-              {cv.personal.role.split('').map((ch, i) => (
-                <motion.span
-                  key={`role-${i}`}
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 1.0 + i * 0.015,
-                    duration: 0.35,
-                    ease: EASE_OUT_EXPO,
-                  }}
-                  className="inline-block"
-                >
-                  {ch === ' ' ? '\u00A0' : ch}
-                </motion.span>
-              ))}
+            <p className="text-lg md:text-xl text-ink">
+              <AnimatedText
+                text={cv.personal.role}
+                ariaLabel={cv.personal.role}
+                baseDelay={1.0}
+                charDelay={0.015}
+                duration={0.35}
+                yFrom={-8}
+              />
             </p>
-            <p
-              className="mt-3 text-muted text-lg md:text-xl leading-relaxed"
-              aria-label={cv.personal.tagline}
-            >
-              {cv.personal.tagline.split('').map((ch, i) => (
-                <motion.span
-                  key={`tag-${i}`}
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 1.6 + i * 0.011,
-                    duration: 0.3,
-                    ease: EASE_OUT_EXPO,
-                  }}
-                  className="inline-block"
-                >
-                  {ch === ' ' ? '\u00A0' : ch}
-                </motion.span>
-              ))}
+            <p className="mt-3 text-muted text-lg md:text-xl leading-relaxed">
+              <AnimatedText
+                text={cv.personal.tagline}
+                ariaLabel={cv.personal.tagline}
+                baseDelay={1.6}
+                charDelay={0.011}
+                duration={0.3}
+                yFrom={-6}
+              />
             </p>
           </div>
 
