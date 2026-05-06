@@ -34,7 +34,7 @@ export default function Skills() {
   return (
     <Section id="skills">
       <SectionHeading
-        number="05"
+        number="06"
         eyebrow="Habilidades"
         icon={Palette}
         title={

@@ -133,6 +133,9 @@ export default function Hero() {
           <a href="#experience" className="link-underline hover:text-ink transition-colors">
             Experiencia
           </a>
+          <a href="#proceso" className="link-underline hover:text-ink transition-colors">
+            Proceso
+          </a>
           <a href="#skills" className="link-underline hover:text-ink transition-colors">
             Habilidades
           </a>

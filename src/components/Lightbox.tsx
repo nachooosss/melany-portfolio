@@ -2,13 +2,18 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import type { Project } from '../data/cv'
 import { useSwipe } from '../hooks/useSwipe'
 import { EASE_OUT_EXPO } from '../constants/animation'
 
+export type LightboxItem = {
+  src: string
+  alt: string
+  caption?: string
+}
+
 type Props = {
   open: boolean
-  items: Project[]
+  items: LightboxItem[]
   index: number
   onClose: () => void
   onPrev: () => void
@@ -127,6 +132,21 @@ export default function Lightbox({
                 draggable={false}
               />
             </AnimatePresence>
+
+            {items[index].caption && (
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={`cap-${items[index].src}`}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                  className="font-display italic text-bg/90 text-sm md:text-base text-center px-4"
+                >
+                  {items[index].caption}
+                </motion.p>
+              </AnimatePresence>
+            )}
 
             {/* Paginación debajo de la imagen */}
             <div className="flex items-center gap-4 md:gap-5">

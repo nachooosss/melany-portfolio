@@ -10,7 +10,7 @@ export default function Certifications() {
   return (
     <Section id="certifications">
       <SectionHeading
-        number="06"
+        number="07"
         eyebrow="Certificaciones"
         icon={Award}
         title={

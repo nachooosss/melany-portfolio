@@ -15,6 +15,7 @@ import {
   UserRound,
   ImageIcon,
   Briefcase,
+  Compass,
   Send,
 } from 'lucide-react'
 import { createPortal } from 'react-dom'
@@ -99,6 +100,12 @@ const mobileItems: Item[] = [
     label: 'Experiencia',
     href: '#experience',
     Icon: Briefcase,
+  },
+  {
+    key: 'proceso',
+    label: 'Proceso',
+    href: '#proceso',
+    Icon: Compass,
   },
   {
     key: 'contact',

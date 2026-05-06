@@ -10,7 +10,7 @@ export default function Languages() {
   return (
     <Section id="languages">
       <SectionHeading
-        number="07"
+        number="08"
         eyebrow="Idiomas"
         icon={LanguagesIcon}
         title="Comunicación"

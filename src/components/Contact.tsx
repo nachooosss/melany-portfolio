@@ -21,7 +21,7 @@ export default function Contact() {
   return (
     <Section id="contact" padding="large">
       <SectionHeading
-        number="08"
+        number="09"
         eyebrow="Contacto"
         icon={Send}
         title={

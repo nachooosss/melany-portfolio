@@ -16,6 +16,7 @@ import { cv } from './data/cv'
 const Preloader = lazy(() => import('./components/Preloader'))
 const ProjectsCarousel = lazy(() => import('./components/ProjectsCarousel'))
 const Experience = lazy(() => import('./components/Experience'))
+const MiProceso = lazy(() => import('./components/MiProceso'))
 const Education = lazy(() => import('./components/Education'))
 const Skills = lazy(() => import('./components/Skills'))
 const Certifications = lazy(() => import('./components/Certifications'))
@@ -46,6 +47,9 @@ export default function App() {
         </Suspense>
         <Suspense fallback={<div className="min-h-screen" />}>
           <Experience />
+        </Suspense>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <MiProceso />
         </Suspense>
         <Suspense fallback={null}>
           <Education />

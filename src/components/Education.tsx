@@ -9,7 +9,7 @@ export default function Education() {
   return (
     <Section id="education">
       <SectionHeading
-        number="04"
+        number="05"
         eyebrow="Formación"
         icon={GraduationCap}
         title="Academia"
