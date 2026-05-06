@@ -1,6 +1,13 @@
 import { useState, lazy, Suspense } from 'react'
 import { m as motion } from 'framer-motion'
-import { Compass, Palette, Box, Sparkles, Maximize2, type LucideIcon } from 'lucide-react'
+import {
+  Compass,
+  Palette,
+  Box,
+  Sparkles,
+  Maximize2,
+  type LucideIcon,
+} from 'lucide-react'
 import Section from './Section'
 import SectionHeading from './SectionHeading'
 import SkeletonImage from './SkeletonImage'
@@ -11,73 +18,253 @@ import { TECH_ICONS } from './TechIcons'
 
 const Lightbox = lazy(() => import('./Lightbox'))
 
+type StepImage = { src: string; alt: string }
+
 type Step = {
   number: string
   title: string
   description: string
   tools: string[]
   deliverable: string
-  image: string
-  imageAlt: string
+  images: StepImage[]
+  layout?: 'single' | 'collage'
   icon: LucideIcon
 }
 
 const steps: Step[] = [
   {
     number: '01',
-    title: 'Análisis & planimetría',
-    description:
-      'Levanto el espacio existente, estudio circulación, entrada de luz natural y condicionantes técnicas. La planta acotada es la base de toda decisión posterior — sin ese cimiento ningún render se sostiene.',
-    tools: ['AutoCAD', 'Levantamiento físico', 'Brief con cliente'],
-    deliverable: 'Plano técnico acotado',
-    image: '/mi-proceso/3-min.webp',
-    imageAlt:
-      'Planos técnicos del proyecto Serene Haven — planta arquitectónica acotada y planta diseñada con propuesta de mobiliario',
-    icon: Compass,
-  },
-  {
-    number: '02',
     title: 'Concepto & moodboard',
     description:
       'Construyo la narrativa: paleta cromática, materiales, mobiliario de inspiración y atmósfera. El espacio cuenta una historia antes de ser modelado — los tonos, las texturas y las formas dialogan con el contexto.',
     tools: ['Photoshop', 'Pinterest', 'Muestrarios físicos'],
     deliverable: 'Lámina conceptual',
-    image: '/mi-proceso/1-min.webp',
-    imageAlt:
-      'Moodboard Serene Haven con paleta de color, materiales y mobiliario de referencia',
+    images: [
+      {
+        src: '/mi-proceso/1-min.webp',
+        alt: 'Moodboard Serene Haven con paleta de color, materiales y mobiliario de referencia',
+      },
+    ],
     icon: Palette,
+  },
+  {
+    number: '02',
+    title: 'Análisis & planimetría',
+    description:
+      'Levanto el espacio existente, estudio circulación, entrada de luz natural y condicionantes técnicas. La planta acotada es la base de toda decisión posterior — sin ese cimiento ningún render se sostiene.',
+    tools: ['AutoCAD', 'Levantamiento físico', 'Brief con cliente'],
+    deliverable: 'Plano técnico acotado',
+    images: [
+      {
+        src: '/mi-proceso/3-min.webp',
+        alt: 'Planos técnicos del proyecto Serene Haven — planta arquitectónica acotada y planta diseñada con propuesta de mobiliario',
+      },
+    ],
+    icon: Compass,
   },
   {
     number: '03',
     title: 'Modelado 3D',
     description:
-      'Traduzco el concepto a geometría: muros, mobiliario, vistas isométricas y cortes técnicos. La maqueta digital permite verificar proporciones, resolver detalles constructivos y anticipar problemas antes de invertir en render.',
+      'Traduzco el concepto a geometría: planta diseñada, vistas isométricas y cortes técnicos. La maqueta digital permite verificar proporciones, resolver detalles constructivos y anticipar problemas antes de invertir en render fotorrealista.',
     tools: ['SketchUp', 'AutoCAD', 'Layout'],
-    deliverable: 'Modelo + cortes técnicos',
-    image: '/mi-proceso/isometrico-min.webp',
-    imageAlt:
-      'Modelo isométrico 3D del proyecto en SketchUp mostrando distribución y mobiliario',
+    deliverable: 'Plano + vistas + cortes',
+    layout: 'single',
+    images: [
+      {
+        src: '/mi-proceso/2-min.webp',
+        alt: 'Lámina técnica Serene Haven — vistas arquitectónicas con isométrico texturizado y cortes A-A\' / B-B\'',
+      },
+    ],
     icon: Box,
   },
   {
     number: '04',
     title: 'Visualización',
     description:
-      'Aplico materiales reales, iluminación física y postproducción para llegar a un render fotorrealista. El entregable final es una lámina presentable que el cliente aprueba — y el equipo de obra ejecuta — sin ambigüedad.',
+      'Aplico materiales reales, iluminación física y postproducción para entregar renders fotorrealistas. El cliente puede recorrer cada ambiente — sala, cocina, dormitorios, baño — antes de construir.',
     tools: ['D5 Render', 'Twinmotion', 'Photoshop'],
-    deliverable: 'Lámina presentable',
-    image: '/mi-proceso/2-min.webp',
-    imageAlt:
-      'Lámina final con vistas arquitectónicas, isométrico texturizado y cortes A-A\' / B-B\'',
+    deliverable: 'Renders fotorrealistas',
+    layout: 'collage',
+    images: [
+      {
+        src: '/mi-proceso/modelado-3d/1.webp',
+        alt: 'Sala de estar Serene Haven — sillones boucle verde, panel de madera ondulado e iluminación cálida',
+      },
+      {
+        src: '/mi-proceso/modelado-3d/2.webp',
+        alt: 'Cocina Serene Haven — muebles de madera, isla con frutero y pared de piedra natural',
+      },
+      {
+        src: '/mi-proceso/modelado-3d/3.webp',
+        alt: 'Dormitorio Serene Haven — cabecera de rattan, textiles verde musgo y arte geométrico',
+      },
+      {
+        src: '/mi-proceso/modelado-3d/4.webp',
+        alt: 'Baño Serene Haven — espejo iluminado, grifería en bronce y revestimiento en piedra',
+      },
+      {
+        src: '/mi-proceso/modelado-3d/5.webp',
+        alt: 'Vista de dormitorio Serene Haven — armario translúcido, zona de escritorio y panel de piedra retroiluminado',
+      },
+    ],
     icon: Sparkles,
   },
 ]
 
-const lightboxItems: LightboxItem[] = steps.map((s) => ({
-  src: s.image,
-  alt: s.imageAlt,
-  caption: `Paso ${s.number} · ${s.title} — ${s.deliverable}`,
-}))
+// El lightbox se scope al paso clickeado — un single sólo abre su imagen,
+// el collage permite navegar entre sus N vistas.
+function buildStepLightboxItems(step: Step): LightboxItem[] {
+  return step.images.map((img, imgIdx) => ({
+    src: img.src,
+    alt: img.alt,
+    caption:
+      step.images.length > 1
+        ? `Paso ${step.number} · ${step.title} — Vista ${imgIdx + 1} de ${step.images.length}`
+        : `Paso ${step.number} · ${step.title} — ${step.deliverable}`,
+  }))
+}
+
+function SingleImage({
+  step,
+  onOpen,
+}: {
+  step: Step
+  onOpen: () => void
+}) {
+  const img = step.images[0]
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`Ampliar ${img.alt}`}
+      className="relative block w-full group cursor-zoom-in"
+    >
+      <SkeletonImage
+        src={img.src}
+        alt={img.alt}
+        className="relative border border-line bg-line transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+        style={{
+          aspectRatio: '16 / 10',
+          boxShadow: '0 30px 80px -40px rgba(28,25,23,0.4)',
+        }}
+      />
+
+      <motion.span
+        aria-hidden
+        animate={{
+          boxShadow: [
+            '0 8px 20px -8px rgba(156,107,79,0.45)',
+            '0 12px 28px -8px rgba(156,107,79,0.65)',
+            '0 8px 20px -8px rgba(156,107,79,0.45)',
+          ],
+        }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent text-bg text-[10px] uppercase tracking-[0.2em] font-medium border border-accent/80 group-hover:scale-105 transition-transform"
+      >
+        <Maximize2 size={12} strokeWidth={2} />
+        Ampliar
+      </motion.span>
+
+      <span
+        aria-hidden
+        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(28,25,23,0) 50%, rgba(28,25,23,0.35) 100%)',
+        }}
+      >
+        <span className="inline-flex items-center gap-2 px-5 py-3 bg-bg text-ink text-xs uppercase tracking-[0.25em] border border-accent shadow-xl">
+          <Maximize2 size={14} strokeWidth={1.6} />
+          Ver en grande
+        </span>
+      </span>
+    </button>
+  )
+}
+
+/**
+ * Bento grid 4×2 para 5 imágenes:
+ *   [   HERO 2x2   ][ A ][ B ]
+ *   [   HERO 2x2   ][ C ][ D ]
+ * En mobile colapsa a 2 cols con hero spanneando full row.
+ */
+function CollageGrid({
+  step,
+  onOpen,
+}: {
+  step: Step
+  onOpen: (imgIdx: number) => void
+}) {
+  const [hero, ...rest] = step.images
+
+  const tile = (img: StepImage, idx: number, extraClass = '') => (
+    <button
+      key={img.src}
+      type="button"
+      onClick={() => onOpen(idx)}
+      aria-label={`Ampliar ${img.alt}`}
+      className={`relative block group cursor-zoom-in overflow-hidden border border-line bg-line ${extraClass}`}
+      style={{ boxShadow: '0 12px 30px -18px rgba(28,25,23,0.4)' }}
+    >
+      <SkeletonImage
+        src={img.src}
+        alt={img.alt}
+        className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+        style={{ width: '100%', height: '100%' }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(156,107,79,0.0) 40%, rgba(156,107,79,0.55) 100%)',
+        }}
+      />
+      <span
+        aria-hidden
+        className="absolute bottom-2 right-2 inline-flex items-center justify-center h-8 w-8 bg-bg/90 text-accent border border-accent opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400"
+      >
+        <Maximize2 size={14} strokeWidth={1.8} />
+      </span>
+    </button>
+  )
+
+  return (
+    <div className="relative">
+      {/* Badge "05 vistas" siempre visible */}
+      <motion.span
+        aria-hidden
+        animate={{
+          boxShadow: [
+            '0 8px 20px -8px rgba(156,107,79,0.45)',
+            '0 12px 28px -8px rgba(156,107,79,0.65)',
+            '0 8px 20px -8px rgba(156,107,79,0.45)',
+          ],
+        }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -top-3 right-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent text-bg text-[10px] uppercase tracking-[0.2em] font-medium border border-accent/80"
+      >
+        <Maximize2 size={12} strokeWidth={2} />
+        {String(step.images.length).padStart(2, '0')} vistas
+      </motion.span>
+
+      {/*
+        Bento grid:
+          Mobile (2 cols): hero ancho completo + 4 tiles cuadrados en 2×2
+          Desktop (4 cols): hero 2×2 + 4 tiles 1×1 a la derecha
+      */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+        {tile(
+          hero,
+          0,
+          'col-span-2 md:col-span-2 md:row-span-2 aspect-[16/10] md:aspect-square'
+        )}
+        {rest.map((img, i) => tile(img, i + 1, 'aspect-square'))}
+      </div>
+    </div>
+  )
+}
 
 function StepCard({
   step,
@@ -86,11 +273,12 @@ function StepCard({
 }: {
   step: Step
   index: number
-  onOpen: (i: number) => void
+  onOpen: (stepIdx: number, imgIdx: number) => void
 }) {
   const Icon = step.icon
   const reverse = index % 2 === 1
   const delay = 0.04 * index
+  const isCollage = step.layout === 'collage'
 
   return (
     <motion.article
@@ -224,7 +412,7 @@ function StepCard({
         </motion.div>
       </motion.div>
 
-      {/* Imagen — clickeable para abrir lightbox */}
+      {/* Imagen / carrusel */}
       <div
         className={`lg:col-span-6 flex justify-center ${
           reverse
@@ -243,7 +431,7 @@ function StepCard({
           }}
           className="relative w-full max-w-[640px]"
         >
-          {/* Back frame con patrón diagonal */}
+          {/* Back frame */}
           <motion.div
             aria-hidden
             initial={{ opacity: 0, x: reverse ? 30 : -30, y: -30 }}
@@ -263,7 +451,6 @@ function StepCard({
                 'repeating-linear-gradient(45deg, rgba(156,107,79,0.06) 0 2px, transparent 2px 8px)',
             }}
           />
-          {/* Tint frame */}
           <motion.div
             aria-hidden
             initial={{ opacity: 0, x: reverse ? -20 : 20, y: 30 }}
@@ -284,64 +471,29 @@ function StepCard({
             }}
           />
 
-          {/* Imagen clickeable — affordance siempre visible */}
-          <button
-            type="button"
-            onClick={() => onOpen(index)}
-            aria-label={`Ampliar ${step.imageAlt}`}
-            className="relative block w-full group cursor-zoom-in"
-          >
-            <SkeletonImage
-              src={step.image}
-              alt={step.imageAlt}
-              className="relative border border-line bg-line transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-              style={{
-                aspectRatio: '16 / 10',
-                boxShadow: '0 30px 80px -40px rgba(28,25,23,0.4)',
-              }}
+          {/* Imagen única o collage según layout */}
+          {isCollage ? (
+            <CollageGrid
+              step={step}
+              onOpen={(imgIdx) => onOpen(index, imgIdx)}
             />
+          ) : (
+            <SingleImage
+              step={step}
+              onOpen={() => onOpen(index, 0)}
+            />
+          )}
 
-            {/* Badge "Ampliar" siempre visible (top-right) — pulse sutil */}
-            <motion.span
-              aria-hidden
-              animate={{
-                boxShadow: [
-                  '0 8px 20px -8px rgba(156,107,79,0.45)',
-                  '0 12px 28px -8px rgba(156,107,79,0.65)',
-                  '0 8px 20px -8px rgba(156,107,79,0.45)',
-                ],
-              }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent text-bg text-[10px] uppercase tracking-[0.2em] font-medium border border-accent/80 group-hover:scale-105 transition-transform"
-            >
-              <Maximize2 size={12} strokeWidth={2} />
-              Ampliar
-            </motion.span>
-
-            {/* Hint visual al hover desktop — sobre la imagen */}
-            <span
-              aria-hidden
-              className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(28,25,23,0) 50%, rgba(28,25,23,0.35) 100%)',
-              }}
-            >
-              <span className="inline-flex items-center gap-2 px-5 py-3 bg-bg text-ink text-xs uppercase tracking-[0.25em] border border-accent shadow-xl">
-                <Maximize2 size={14} strokeWidth={1.6} />
-                Ver en grande
-              </span>
-            </span>
-          </button>
-
-          {/* Hint texto bajo la imagen — explícito para mobile y accesible */}
+          {/* Hint texto bajo la imagen */}
           <p
             className={`mt-3 flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-accent ${
               reverse ? 'justify-center lg:justify-start' : 'justify-center lg:justify-end'
             }`}
           >
             <Maximize2 size={11} strokeWidth={1.8} />
-            Tocá para ampliar
+            {isCollage
+              ? `Tocá una vista · ${String(step.images.length).padStart(2, '0')} ambientes`
+              : 'Tocá para ampliar'}
           </p>
 
           {/* Corner ticks */}
@@ -384,8 +536,20 @@ function StepCard({
 }
 
 export default function MiProceso() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const open = openIndex !== null
+  const [openState, setOpenState] = useState<{
+    stepIdx: number
+    imgIdx: number
+  } | null>(null)
+  const open = openState !== null
+
+  const handleOpen = (stepIdx: number, imgIdx: number) => {
+    setOpenState({ stepIdx, imgIdx })
+  }
+
+  // Items del lightbox = solo las imágenes del paso clickeado.
+  const lightboxItems =
+    openState !== null ? buildStepLightboxItems(steps[openState.stepIdx]) : []
+  const maxIdx = lightboxItems.length - 1
 
   return (
     <Section id="proceso" padding="large">
@@ -395,7 +559,7 @@ export default function MiProceso() {
         icon={Compass}
         title={
           <>
-            Del plano frío al{' '}
+            Del concepto al{' '}
             <span className="italic text-muted">render que enamora.</span>
           </>
         }
@@ -403,8 +567,8 @@ export default function MiProceso() {
 
       <p className="text-base md:text-lg text-muted max-w-2xl mb-20 -mt-4 text-center lg:text-left mx-auto lg:mx-0">
         Cada proyecto recorre cuatro etapas. No hay atajos: la calidad del
-        render final depende del rigor con que se hizo la planimetría. Tocá
-        cualquier imagen para verla en detalle.
+        render final depende del rigor con que se hizo el concepto y la
+        planimetría. Tocá cualquier imagen para verla en detalle.
       </p>
 
       <div className="flex flex-col gap-24 lg:gap-32">
@@ -413,7 +577,7 @@ export default function MiProceso() {
             key={step.number}
             step={step}
             index={index}
-            onOpen={setOpenIndex}
+            onOpen={handleOpen}
           />
         ))}
       </div>
@@ -423,14 +587,18 @@ export default function MiProceso() {
           <Lightbox
             open={open}
             items={lightboxItems}
-            index={openIndex ?? 0}
-            onClose={() => setOpenIndex(null)}
+            index={openState?.imgIdx ?? 0}
+            onClose={() => setOpenState(null)}
             onPrev={() =>
-              setOpenIndex((i) => (i === null ? null : Math.max(0, i - 1)))
+              setOpenState((s) =>
+                s === null ? null : { ...s, imgIdx: Math.max(0, s.imgIdx - 1) }
+              )
             }
             onNext={() =>
-              setOpenIndex((i) =>
-                i === null ? null : Math.min(steps.length - 1, i + 1)
+              setOpenState((s) =>
+                s === null
+                  ? null
+                  : { ...s, imgIdx: Math.min(maxIdx, s.imgIdx + 1) }
               )
             }
           />
